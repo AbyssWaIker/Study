@@ -1,0 +1,46 @@
+﻿<Window x:Class="Study.TopicList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Study"
+        mc:Ignorable="d"
+        Title="TopicList" Height="450" Width="950" FontSize="24"
+        Background="AliceBlue" FontFamily="Sitka Heading">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "20" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Темы:" Grid.Column="1" Grid.Row="1" FontSize="48"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" Margin="5">
+            <TextBlock Text="Завершенные Темы:" FontSize="36"/>
+            <ListBox x:Name="FinishedTopics" MinHeight="200" MinWidth="200"
+                     DisplayMemberPath="OrderAndName"/>
+            <Button x:Name="GetResults" Content="Посмотреть результаты"
+                    Margin="10" IsEnabled="False" Click="GetResults_Click"/>
+        </StackPanel>
+
+        <StackPanel  Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Margin="5">
+            <TextBlock Text="Незавершенные Темы:" FontSize="36" />
+            <ListBox x:Name="UnFinishedTopics" MinHeight="240" MinWidth="200"
+                     DisplayMemberPath="OrderAndName"/>
+            <Button x:Name="StartUnfinishedTopic" Content="начать тему" 
+                    Click="StartUnfinishedTopic_Click" IsDefault="True" Margin="10"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

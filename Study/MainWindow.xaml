@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="300" MinWidth="600" Height="350" Width="650"  
-        FontSize="24" d:DesignHeight="450" >
+        Title="MainWindow" MinHeight="300" MinWidth="450" Height="350" Width="500"  
+        FontSize="36" Background="AliceBlue" FontFamily="Sitka Heading">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width = "20" />
-            <ColumnDefinition Width = "auto" />
             <ColumnDefinition Width = "20" />
             <ColumnDefinition Width = "auto" />
             <ColumnDefinition Width = "20" />
@@ -20,22 +18,14 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Hello" Text="Приветствую! Кто ты? :)" FontSize="48" 
-                   Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="30,10"/>
-        <Button x:Name="StudentPage" Content=" Я - студент  " 
-                Grid.Column="1" Grid.Row="4"  Click="StudentPage_Click" FontSize="36"/>
-        <TextBlock Text="Пароль:" FontSize="20" Grid.Column="3" Grid.Row="2" />
-        <PasswordBox x:Name="ProfessorPassword"  Grid.Column="3" Grid.Row="3" />
-        <Button x:Name="ProfessorsPage" Content=" Я - преподаватель " 
-                Grid.Column="3" Grid.Row="4" FontSize="36" 
-                Click="ProffesorsPage_Click"/>
-        <Button x:Name="Debugging" Content=" Отладка" 
-                Grid.Column="3" Grid.Row="5" FontSize="36" 
-                Margin="10" Visibility="Hidden" />
 
+        <TextBlock Text="Ты новенький?" Grid.Column="1" Grid.Row="1" 
+                   HorizontalAlignment="Center"/>
+        <Button x:Name="Registration" Content="Да - зарегистрироваться" 
+                Grid.Column="1" Grid.Row="2" Margin="10" Click="Registration_Click"/>
+        <Button x:Name="Login" Content="Нет - войти" 
+                Grid.Column="1" Grid.Row="3" Margin="10" Click="Login_Click"/>
     </Grid>
 </Window>

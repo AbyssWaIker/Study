@@ -59,24 +59,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddTopic.xaml.cs">
+    <Compile Include="Interfaces\ICourseRequestor.cs" />
+    <Compile Include="Models\CourseModel.cs" />
+    <Compile Include="Models\StudentToCourseRealationModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
+    <Compile Include="Views\Courses.xaml.cs">
+      <DependentUpon>Courses.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateTeacher.xaml.cs">
+      <DependentUpon>CreateTeacher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GiveAccess.xaml.cs">
+      <DependentUpon>GiveAccess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTopic.xaml.cs">
       <DependentUpon>AddTopic.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddTopicPortion.xaml.cs">
+    <Compile Include="Views\AddTopicPortion.xaml.cs">
       <DependentUpon>AddTopicPortion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddTopicQuestion.xaml.cs">
+    <Compile Include="Views\AddTopicQuestion.xaml.cs">
       <DependentUpon>AddTopicQuestion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChangeQuestion.xaml.cs">
-      <DependentUpon>ChangeQuestion.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ChangeTopicPortion.xaml.cs">
-      <DependentUpon>ChangeTopicPortion.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Enums.cs" />
-    <Compile Include="GlobalConfig.cs" />
-    <Compile Include="Hello, student.xaml.cs">
+    <Compile Include="DataConnection\Enums.cs" />
+    <Compile Include="DataConnection\GlobalConfig.cs" />
+    <Compile Include="Views\Hello, student.xaml.cs">
       <DependentUpon>Hello, student.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IChangedTopicPortinonRequestor.cs" />
@@ -89,48 +99,65 @@
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="DataConnection\SqlConnector.cs" />
     <Compile Include="Models\StudentModel.cs" />
-    <Compile Include="DataConnection\TextConnector.cs" />
     <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\TopicPortionModel.cs" />
-    <Compile Include="Proffessor%27s start.xaml.cs">
-      <DependentUpon>Proffessor%27s start.xaml</DependentUpon>
+    <Compile Include="Views\OldOrNew.xaml.cs">
+      <DependentUpon>OldOrNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProffessorResults.xaml.cs">
+    <Compile Include="Views\StudentCoursesList.xaml.cs">
+      <DependentUpon>StudentCoursesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeacherTopicList.xaml.cs">
+      <DependentUpon>TeacherTopicList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProffessorResults.xaml.cs">
       <DependentUpon>ProffessorResults.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StudentResult.xaml.cs">
+    <Compile Include="Views\StudentResult.xaml.cs">
       <DependentUpon>StudentResult.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TopicList.xaml.cs">
+    <Compile Include="Views\TopicList.xaml.cs">
       <DependentUpon>TopicList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TopicPortion.xaml.cs">
+    <Compile Include="Views\TopicPortion.xaml.cs">
       <DependentUpon>TopicPortion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TopicQuestion.xaml.cs">
+    <Compile Include="Views\TopicQuestion.xaml.cs">
       <DependentUpon>TopicQuestion.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddTopic.xaml">
+    <Compile Include="Models\WrongAnswerModel.cs" />
+    <Compile Include="WrongAnswersDebug.xaml.cs">
+      <DependentUpon>WrongAnswersDebug.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\Courses.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddTopicPortion.xaml">
+    <Page Include="Views\CreateTeacher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddTopicQuestion.xaml">
+    <Page Include="Views\GiveAccess.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChangeQuestion.xaml">
+    <Page Include="Views\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ChangeTopicPortion.xaml">
+    <Page Include="Views\AddTopic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Hello, student.xaml">
+    <Page Include="Views\AddTopicPortion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTopicQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Hello, student.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,27 +174,39 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Proffessor%27s start.xaml">
+    <Page Include="Views\OldOrNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProffessorResults.xaml">
+    <Page Include="Views\StudentCoursesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StudentResult.xaml">
+    <Page Include="Views\TeacherTopicList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TopicList.xaml">
+    <Page Include="Views\ProffessorResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TopicPortion.xaml">
+    <Page Include="Views\StudentResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TopicQuestion.xaml">
+    <Page Include="Views\TopicList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TopicPortion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TopicQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WrongAnswersDebug.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

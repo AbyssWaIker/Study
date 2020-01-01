@@ -9,7 +9,11 @@ namespace Study
         /// <summary>
         /// представляет уникальный идентификатор темы
         /// </summary>
-        public int id { get; set; }
+        private int id;
+
+        public int Courseid { get; set; }
+
+        public int TopicOrderNumber { get; set; }
 
         /// <summary>
         /// представляет название темы
@@ -25,14 +29,21 @@ namespace Study
         /// представляет список вопросов к теме
         /// </summary>
         public List<QuestionModel> Questions { get; set; } = new List<QuestionModel>();
-        public int TopicOrderNumber;
 
-        public string NameAndOrder
+        public String OrderAndName
         {
             get
             {
-                return $"{TopicOrderNumber} - {topicName}";
+                return $"{TopicOrderNumber} {topicName}";
             }
+        }
+        public int getID()
+        {
+            return id;
+        }
+        public void setID(int i)
+        {
+            id = i;
         }
     }
 }

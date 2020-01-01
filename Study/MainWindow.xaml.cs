@@ -26,31 +26,18 @@ namespace Study
             GlobalConfig.InitializeConnection(DataBaseType.sql);
         }
 
-        private void StudentPage_Click(object sender, RoutedEventArgs e)
+        private void Registration_Click(object sender, RoutedEventArgs e)
         {
             Hello__student HelloStudent = new Hello__student();
             HelloStudent.Show();
             this.Close();
         }
 
-        private void ProffesorsPage_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
-
-
-            if (ProfessorPassword.Password == "prof")
-            {
-                Proffessor_s_start ps = new Proffessor_s_start();
-                ps.Show();
-                this.Close();
-            }
-            else if (ProfessorPassword.Password == "")
-            { MessageBox.Show("Введите пароль", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
-            else
-            {
-                MessageBox.Show("Вы не преподаватель", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                ProfessorPassword.Password = "";
-            }
-
+            Login l = new Login();
+            l.Show();
+            this.Close();
         }
     }
 }

@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>Studybase</Name>
+    <Name>StudyBase</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{d45bb544-b9c2-4cd4-be84-89661cf15530}</ProjectGuid>
+    <ProjectGuid>{88e09b5d-3268-4786-93ee-a2460bed318c}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>Studybase</RootNamespace>
-    <AssemblyName>Studybase</AssemblyName>
+    <RootNamespace>StudyBase</RootNamespace>
+    <AssemblyName>StudyBase</AssemblyName>
     <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -66,9 +66,19 @@
     <Build Include="dbo\Tables\Grades.sql" />
     <Build Include="dbo\Tables\Questions.sql" />
     <Build Include="dbo\Tables\Student.sql" />
-    <Build Include="dbo\Tables\Topic.sql" />
+    <Build Include="dbo\Tables\Topics.sql" />
     <Build Include="dbo\Tables\TopicPortions.sql" />
+    <Build Include="dbo\Stored Procedures\SpDeleteGradeWithTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteQuestion.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteQuestionWithTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteTopicPortion.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteTopicPortionWithTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spGetGradesByStudent.sql" />
     <Build Include="dbo\Stored Procedures\spGetQuestions_byTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spGetStudent_All.sql" />
+    <Build Include="dbo\Stored Procedures\spGetStudentByid.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTopicByid.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicPortions_ByTopic.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicsAll.sql" />
     <Build Include="dbo\Stored Procedures\SpInsertGrade.sql" />
@@ -76,19 +86,23 @@
     <Build Include="dbo\Stored Procedures\spInsertStudent.sql" />
     <Build Include="dbo\Stored Procedures\spInsertTopic.sql" />
     <Build Include="dbo\Stored Procedures\spInsertTopicPortion.sql" />
-    <Build Include="dbo\Stored Procedures\SpUpdateTopicOrderNumber.sql" />
-    <Build Include="dbo\Stored Procedures\SpDeleteGradeWithTopic.sql" />
-    <Build Include="dbo\Stored Procedures\spDeleteQuestionWithTopic.sql" />
-    <Build Include="dbo\Stored Procedures\spDeleteTopic.sql" />
-    <Build Include="dbo\Stored Procedures\spDeleteTopicPortionWithTopic.sql" />
-    <Build Include="dbo\Stored Procedures\spDeleteQuestion.sql" />
-    <Build Include="dbo\Stored Procedures\spDeleteTopicPortion.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateQuestion.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateTopicName.sql" />
+    <Build Include="dbo\Stored Procedures\SpUpdateTopicOrderNumber.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateTopicPortion.sql" />
-    <Build Include="dbo\Stored Procedures\spGetGradesByStudent.sql" />
-    <Build Include="dbo\Stored Procedures\spGetStudent_All.sql" />
-    <Build Include="dbo\Stored Procedures\spGetStudentByid.sql" />
-    <Build Include="dbo\Stored Procedures\spGetTopicByid.sql" />
+    <Build Include="dbo\Stored Procedures\spCheckifUsernameIsFree.sql" />
+    <Build Include="dbo\Stored Procedures\spGetPasswordByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spGetStudentByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTopicNameByid.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTopicOrderNumberByid.sql" />
+    <Build Include="dbo\Tables\WrongAnswers.sql" />
+    <Build Include="dbo\Tables\Teachers.sql" />
+    <Build Include="dbo\Tables\Courses.sql" />
+    <Build Include="dbo\Tables\StudentToCourse.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertWrongAnswerToQuestion.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteWrongQuestionAnswerWithQuestionID.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="StudyBase.refactorlog" />
   </ItemGroup>
 </Project>

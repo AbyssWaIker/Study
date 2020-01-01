@@ -9,6 +9,6 @@ Begin
 
 set nocount on
 
-select * from dbo.Student where id=@id
+select Id, StudentName, StudentGroup from dbo.Student where id=@id
 
 end
