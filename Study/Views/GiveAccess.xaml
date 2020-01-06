@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study.Views"
         mc:Ignorable="d"
-        Title="GiveAccess" Height="450" Width="800"
+        Title="GiveAccess" Height="570" Width="450"
         Background="AliceBlue" FontFamily="Sitka Heading" FontSize="36">
     <Grid>
 
@@ -25,38 +25,39 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
 
-        <TextBlock Text="Результаты:" HorizontalAlignment="Center" FontSize="36"  
-                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock Text="Предоставить доступ:" HorizontalAlignment="Center" FontSize="36"  
+                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"></TextBlock>
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="Посмотреть результаты студента:" FontSize="36"></TextBlock>
-
-        <ScrollViewer Grid.Row="4" Grid.Column="1" HorizontalScrollBarVisibility="Visible" MaxWidth="700">
-            <DataGrid x:Name="AcceessShow" FontSize="24"
+        <ScrollViewer Grid.Row="4" Grid.Column="1" HorizontalScrollBarVisibility="Visible" 
+                      Grid.ColumnSpan="3" Grid.RowSpan="2" MaxWidth="500">
+            <DataGrid x:Name="AcceessShow" FontSize="24" MaxHeight="250"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       AlternatingRowBackground="LightGray" SelectionChanged="AcceessShow_SelectionChanged" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="id" IsReadOnly="False"
-                                        Binding="{Binding Path=id, Mode=OneWay}" />
-                    <DataGridTextColumn Header="Имя" IsReadOnly="True"
-                                        Binding="{Binding Path=StudentName, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Группа" IsReadOnly="True" 
-                                        Binding="{Binding Path=StudentGroup, Mode=OneWay}" />
-                    <DataGridTextColumn Header="Результаты" IsReadOnly="True" 
-                                        Binding="{Binding Path=SuccesfulTopicsNumber, Mode=OneWay}"/>
+                                        Binding="{Binding Path=GroupName, Mode=OneWay}" />
                     <DataGridCheckBoxColumn Header="Доступ" IsReadOnly="True"
                                             Binding="{Binding Path=access, Mode=TwoWay}" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
-        <Button x:Name="GiveAccessButton" Grid.Column="1" Grid.Row="6" 
-                Content="Дать доступ студенту" IsEnabled="False"
-                Grid.ColumnSpan="2" FontSize="30" Margin="20" Click="GiveAccessButton_Click"/>
-        <Button x:Name="Finish" Grid.Column="1" Grid.Row="7" 
+        
+        <TextBox x:Name="NewGroupName" Grid.Column="1" Grid.Row="6" MaxLength="50"
+                 TextChanged="NewGroupName_TextChanged" Width="1" Visibility="Hidden"/>
+        <Button Grid.Column="2" Grid.Row="6" x:Name="addGroup" 
+                Content="Добавить новую группу" Margin="5" FontSize="16" Click="addGroup_Click"/>
+        <Button Grid.Column="3" Grid.Row="6" x:Name="deleteGroup" 
+                Content="Удалить группу" Margin="5" FontSize="16"/>
+        <Button x:Name="GiveAccessButton" Grid.Column="1" Grid.Row="7" 
+                Content="Дать доступ группе" IsEnabled="False"
+                Grid.ColumnSpan="3" FontSize="30" Margin="20" Click="GiveAccessButton_Click"/>
+        <Button x:Name="Finish" Grid.Column="1" Grid.Row="8" 
                 Content="Закончить изменение" Click="Finish_Click"
-                Grid.ColumnSpan="2" FontSize="30" Margin="20"/>
+                Grid.ColumnSpan="3" FontSize="30" Margin="20"/>
     </Grid>
 </Window>

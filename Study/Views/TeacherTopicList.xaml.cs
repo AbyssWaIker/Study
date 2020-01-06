@@ -43,12 +43,6 @@ namespace Study
             cm = c;
             ic = i;
             isTopicNew = newtopic;
-
-            bool access = Properties.Settings.Default.FreeAccess;
-            if (access)
-            {
-                GiveAccess.Visibility = Visibility.Hidden;
-            }
         }
 
 

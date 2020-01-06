@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Study.DataConnection;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
@@ -20,6 +21,12 @@ namespace Study
                     SqlConnector sql = new SqlConnector();
                     connection = sql;
                     break;
+
+                case DataBaseType.sqlite:
+                    SqliteConnector sqlite = new SqliteConnector();
+                    connection = sqlite;
+                    break;
+
             }
 
              

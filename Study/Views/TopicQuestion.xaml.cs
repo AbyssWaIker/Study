@@ -45,6 +45,7 @@ namespace Study
         private void RandomizeQuestionAnswer()
         {
             QuestionText.Text = tpm.Questions.ElementAt(currentQuestion).QuestionText;
+            dispatcherTimer.IsEnabled = true;
             Timer(tpm, currentQuestion);
 
 
@@ -71,6 +72,7 @@ namespace Study
             int timetoAnswer = tm.Questions.ElementAt(currentQuestion).timeToAnswer;
             timeLeft = timetoAnswer;
             TimeToAnswerValue.Text = timeLeft.ToString();
+            dispatcherTimer.Tick -= dispatcherTimer_Tick;
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
@@ -88,6 +90,7 @@ namespace Study
             {
                 MessageBox.Show("Время истекло");
                 Continue_Button_Click(sender, e);
+                dispatcherTimer.Stop();
             }
 
         }
@@ -107,11 +110,12 @@ namespace Study
 
         private void Continue_Button_Click(object sender, EventArgs e)
         {
+
             dispatcherTimer.Stop();
+            dispatcherTimer.IsEnabled = false;
             Check();
             if (currentQuestion == tpm.Questions.Count)
             {
-                dispatcherTimer.Stop();
                 GradeModel grade = new GradeModel();
                 grade.Topicid = tpm.getID();
                 grade.setStudentID(stm.id);

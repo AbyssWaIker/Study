@@ -20,11 +20,12 @@ namespace Study
     public partial class StudentResult : Window
     {
         StudentModel student;
-        public StudentResult(StudentModel st)
+        public StudentResult(StudentModel st, CourseModel course)
         {
             InitializeComponent();
             StudentsNameValue.Text = st.StudentName;
-            StudentsGroupValue.Text = st.StudentGroup;
+            StudentsGroupValue.Text = GlobalConfig.connection.GetGroupName(st.StudentGroupid);
+            FinishedCourseValue.Text = course.Name;
             GradesResults.ItemsSource = st.grades;
             student = st;
         }
@@ -35,13 +36,13 @@ namespace Study
             text.Add("\n****************************************************************************\n" +
                      "****************************************************************************\n");
             text.Add($"Результаты студента: {StudentsNameValue.Text} \n" +
-                $"Из группы {StudentsGroupValue.Text} \n\n");
+                $"Из группы {StudentsGroupValue.Text} \n По курсу {FinishedCourseValue.Text} \n");
             foreach(GradeModel g in student.grades)
             {
                 text.Add($"\n{g.getGradeInfoForStudent()}\n");
             }
 
-            System.IO.File.WriteAllLines(@".\Student.txt", text);
+            System.IO.File.WriteAllLines(@".\Results\Student.txt", text);
             MessageBox.Show("Информация сохранена");
         }
     }

@@ -24,17 +24,18 @@ namespace Study
 
         //список тем
         List<TopicModel> tml1 = new List<TopicModel>();
+        CourseModel course;
 
         //Студент входит
-        public TopicList(StudentModel st, CourseModel course)
+        public TopicList(StudentModel st, CourseModel c)
         {
             InitializeComponent();
 
             //получение списка тем
-            List<TopicModel> tml = GlobalConfig.connection.GetTopicModels_byCourseID(course.id);
+            List<TopicModel> tml = GlobalConfig.connection.GetTopicModels_byCourseID(c.id);
 
             //сортировка списка тем по порядку
-            tml1 = tml.OrderBy(x => x.TopicOrderNumber).ToList();
+            tml1 = tml;
 
             //если студент уже прошел какие-то темы
             if (st.grades.Count!=0)
@@ -42,11 +43,19 @@ namespace Study
                 //переносимпройденные темы в соответствующий список
                 foreach (GradeModel g in st.grades)
                 {
-                    //находим нужную тему
-                    TopicModel t = tml1.Find(t1 => t1.getID() == g.Topicid);
-                    
-                    //перемещаем ее в другой список
-                    swapTopic(t);
+                    bool topicInCourse = tml1.Exists(t1 => t1.getID() == g.Topicid);
+                    if (topicInCourse)
+                    {
+                        //находим нужную тему
+                        TopicModel t = tml1.Find(t1 => t1.getID() == g.Topicid);
+
+                        //перемещаем ее в другой список
+                        swapTopic(t);
+                    }
+                    else
+                    {
+                        st.grades.Remove(g);
+                    }
                 }
             }
 
@@ -54,7 +63,7 @@ namespace Study
             UnFinishedTopics.ItemsSource = tml1;
             //запоминаем данные о студенте
             stm = st;
-
+            course = c;
 
         }
 
@@ -115,7 +124,7 @@ namespace Study
 
         private void GetResults_Click(object sender, RoutedEventArgs e)
         {
-            StudentResult sr = new StudentResult(stm);
+            StudentResult sr = new StudentResult(stm, course);
             sr.Show();
             this.Close();
         }

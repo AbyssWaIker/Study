@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study.Views"
-        mc:Ignorable="d" FontSize="48"
+        mc:Ignorable="d" FontSize="30"
         Title="CreateTeacher" Height="500" Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,23 +39,23 @@
                    Margin="20,0,0,0" HorizontalAlignment="Center" Grid.ColumnSpan="2" />
         <TextBlock Text="Имя:" FontSize="30" Grid.Column="1" Grid.Row="3" 
                    HorizontalAlignment="Right" />
-        <TextBox x:Name="tName" Grid.Column="2" Grid.Row="3" 
+        <TextBox x:Name="tName" Grid.Column="2" Grid.Row="3" MinWidth="200"
                  FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
         <TextBlock Text="Должность.:" FontSize="30" Grid.Column="1" Grid.Row="4" 
                    HorizontalAlignment="Right" />
         <TextBox x:Name="Position" Grid.Column="2" Grid.Row="4" 
-                 FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
+                 FontSize="24"  VerticalAlignment="Center" MinWidth="200" MaxLength="50"/>
         <TextBlock Text="Никнейм для входа:" FontSize="30" Grid.Column="1" Grid.Row="5" 
                    HorizontalAlignment="Right" Margin="0,20,0,0"/>
-        <TextBox x:Name="UserName" Grid.Column="2" Grid.Row="5" MaxLength="50"
+        <TextBox x:Name="UserName" Grid.Column="2" Grid.Row="5" MaxLength="50" MinWidth="200"
                  FontSize="24"  VerticalAlignment="Center" Margin="0,20,0,0"/>
         <TextBlock Text="Придумай пароль:" FontSize="30" Grid.Column="1" Grid.Row="6" 
                    HorizontalAlignment="Right" />
-        <TextBox x:Name="Password" Grid.Column="2" Grid.Row="6" 
+        <TextBox x:Name="Password" Grid.Column="2" Grid.Row="6" MinWidth="200"
                  FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
         <TextBlock Text="Подтверди пароль:" FontSize="30" Grid.Column="1" Grid.Row="7" 
                    HorizontalAlignment="Right" />
-        <TextBox x:Name="ConfirmPassword" Grid.Column="2" Grid.Row="7" 
+        <TextBox x:Name="ConfirmPassword" Grid.Column="2" Grid.Row="7" MinWidth="200"
                  FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
 
         <Button x:Name="AddTeacher" Content="Добавить преподавателя" Grid.ColumnSpan="2"

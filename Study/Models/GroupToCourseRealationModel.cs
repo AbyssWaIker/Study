@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Study.Models
 {
-    public class StudentToCourseRealationModel
+    public class GroupToCourseRealationModel
     {
         public int id { get; set; }
         public int Courseid { get; set; }
-        public int Studentid { get; set; }
+        public int Groupid { get; set; }
 
-        public StudentToCourseRealationModel()
+        public GroupToCourseRealationModel()
         {
 
         }
 
-        public StudentToCourseRealationModel(int cid, int sid)
+        public GroupToCourseRealationModel(int cid, int sid)
         {
             Courseid = cid;
-            Studentid = sid;
+            Groupid = sid;
         }
     }
 }

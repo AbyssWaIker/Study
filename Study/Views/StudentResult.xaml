@@ -36,16 +36,20 @@
             <TextBlock x:Name="StudentsGroupValue" Text="[Группа студента]" FontSize="36"></TextBlock>
         </StackPanel>
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="Результаты:" FontSize="36"></TextBlock>
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal" HorizontalAlignment="Center"  >
+            <TextBlock x:Name="FinishedCourseLabel" Text="По курсу:" FontSize="36"></TextBlock>
+            <TextBlock x:Name="FinishedCourseValue" Text="[курс]" FontSize="36"></TextBlock>
+        </StackPanel>
+        
         <ScrollViewer Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
             <DataGrid x:Name="GradesResults" CanUserAddRows="False" IsReadOnly="True" 
                       AutoGenerateColumns="False" MaxHeight="500" MaxWidth="800" AlternatingRowBackground="LightGray" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="№" Binding="{Binding Path=TopicOrderNumber, Mode=OneWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Название темы" Binding="{Binding Path=TopicName, Mode=OneWay}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Правильных Ответов" Binding="{Binding Path=QuestionAnsweredCorrectly, Mode=OneWay}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Всего вопросов" Binding="{Binding Path=QuestionAnswered, Mode=OneWay}" IsReadOnly="True"/>
-                    <DataGridCheckBoxColumn Header="Успешно пройдено" Binding="{Binding Path=isSuccesful, Mode=OneWay}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Ответил" Binding="{Binding Path=QuestionAnsweredCorrectly, Mode=OneWay}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Из № вопросов" Binding="{Binding Path=QuestionAnswered, Mode=OneWay}" IsReadOnly="True"/>
+                    <DataGridCheckBoxColumn Header="Пройдено успешно?" Binding="{Binding Path=isSuccesful, Mode=OneWay}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

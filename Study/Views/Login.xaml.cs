@@ -49,15 +49,17 @@ namespace Study
                 }
                 else
                 {
-                    bool DataBaseisEmpty = GlobalConfig.connection.checkIfThereIsaTeachersData();
+                    bool DataBaseisEmpty = !GlobalConfig.connection.checkIfThereIsaTeachersData();
                     if(DataBaseisEmpty)
                     {
                         if(UserName.Text=="admin"&&Password.Password=="admin")
                         {
-                            TeacherModel t = GlobalConfig.connection.GetTeacherByUserName(UserName.Text);
-                            Courses p = new Courses(t);
-                            p.Show();
-                            this.Close();
+                            CreateTeacher ct = new CreateTeacher();
+                            ct.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Никнейм отсутствует в базе данных", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else

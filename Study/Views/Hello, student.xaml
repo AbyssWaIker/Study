@@ -42,10 +42,10 @@
                    HorizontalAlignment="Right" />
         <TextBox x:Name="StudentName" Grid.Column="2" Grid.Row="3" 
                  FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
-        <TextBlock Text="№ Группы:" FontSize="30" Grid.Column="1" Grid.Row="4" 
+        <TextBlock Text="Группа:" FontSize="30" Grid.Column="1" Grid.Row="4" 
                    HorizontalAlignment="Right" />
-        <TextBox x:Name="StudentGroup" Grid.Column="2" Grid.Row="4" 
-                 FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
+        <ComboBox x:Name="StudentGroup" Grid.Column="2" Grid.Row="4" 
+                 FontSize="24" DisplayMemberPath="{Binding Path=GroupName, Mode=OneWay}"/>
         <TextBlock Text="Никнейм для входа:" FontSize="30" Grid.Column="1" Grid.Row="5" 
                    HorizontalAlignment="Right" Margin="0,20,0,0"/>
         <TextBox x:Name="StudentUserName" Grid.Column="2" Grid.Row="5" MaxLength="50"

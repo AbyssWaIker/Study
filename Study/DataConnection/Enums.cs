@@ -11,6 +11,7 @@ namespace Study
     /// </summary>
     public enum DataBaseType
     {
-        sql
+        sql,
+        sqlite
     }
 }

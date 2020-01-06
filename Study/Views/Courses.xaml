@@ -32,7 +32,7 @@
                      DisplayMemberPath = "{Binding Path=Name}" MaxWidth="400" SelectionChanged="AllCourses_SelectionChanged"/>
         </StackPanel>
 
-        <Button x:Name="ChangeCourseButton" Content="Изменить курс" 
+        <Button x:Name="ChangeCourseButton" Content="Просмотреть курс" 
                      Margin="10" FontSize="18"
                         IsEnabled="False"  Grid.Row="2" Grid.Column="1" Click="ChangeCourseButton_Click"/>
         <Button x:Name="DeleteCourseButton" Content="Удалить курс" 
@@ -40,7 +40,7 @@
                         FontSize="18" IsEnabled="False" Click="DeleteCourseButton_Click"/>
 
         <Button x:Name="AddCourse" Content="Добавить курс" 
-                   Grid.Column="1" Grid.Row="3" 
+                   Grid.Column="1" Grid.Row="3" FontSize="36"
                 Grid.ColumnSpan="2" Margin="20,10" Click="AddCourse_Click"/>
         <TextBlock Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" 
                        FontSize="24" Margin="20,40,20,0">Разное:</TextBlock>

@@ -20,12 +20,12 @@ namespace Study
 
         }
 
-        public TeacherModel(String n, String un, String pw, String p)
+        public TeacherModel(String n, String p, String un, String pw)
         {
             Name = n;
+            Position = p;
             userName = un;
             Password = pw;
-            Position = p;
         }
 
     }

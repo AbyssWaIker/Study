@@ -19,7 +19,8 @@ namespace Study
         TopicPortionModel createTopicPortionModel(TopicPortionModel model);
         QuestionModel createQuestionModel(QuestionModel model);
         WrongAnswerModel createWrongAnswerModel(WrongAnswerModel model);
-        StudentToCourseRealationModel CreateStudentToCourseRealation(StudentToCourseRealationModel model);
+        GroupModel createGroup(GroupModel model);
+        GroupToCourseRealationModel CreateGroupToCourseRealation(GroupToCourseRealationModel model);
         List<TopicPortionModel> GetTopicPortions_bytopic(int topicid);
         List<WrongAnswerModel> GetWrongAnswerModels_byQuestionid(int QuestionID);
         List<QuestionModel> GetQuestions_byTopic(int topicid);
@@ -27,12 +28,15 @@ namespace Study
         List<TopicModel> GetTopicModels_byCourseID( int courseid);
         List<CourseModel> GetCourseModelsAll();
         List<CourseModel> GetCourseModelsByTeacherID(int TeacherID);
+        List<GroupModel> GetGroups_All();
         CourseModel GetCourse(int id);
+        String GetGroupName(int id);
         List<StudentModel> getStudents_All();
         List<StudentModel> GetStudentsByCourseid(int Courseid);
-        List<StudentToCourseRealationModel> GetStudentToCourseRelationWithCourseID(int Courseid);
-        List<StudentToCourseRealationModel> GetStudentToCourseRelationWithStudentid(int Studentid);
+        List<GroupToCourseRealationModel> GetGroupToCourseRelationWithCourseID(int Courseid);
+        List<GroupToCourseRealationModel> GetGroupToCourseRelationWithGroupid(int Groupid);
         List<GradeModel> GetGrades_byStudent(int studentid);
+        List<GradeModel> GetStudentGradesforCourse(int studentid, int courseid);
         GradeModel createGrade(GradeModel model);
         bool CheckifUsernameIsFree(string userName);
         bool CheckifTeacherUsernameIsFree(string userName);

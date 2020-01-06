@@ -10,7 +10,7 @@ namespace Study
         // представляет уникальный идентификатор оценки
         private int id { get; set; }
         // представляет студента, который получил оценку
-        private int studentid { get; set; }
+        public int studentid { get; set; }
         // представляет тему, по которой получена оценка
         public int Topicid { get; set; }
 

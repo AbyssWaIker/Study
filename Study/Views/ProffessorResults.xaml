@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study"
         mc:Ignorable="d"
-        Title="ProffessorResults" Height="650" Width="800"
+        Title="ProffessorResults" Height="650" Width="600"
         Background="AliceBlue" FontFamily="Sitka Heading" FontSize="36">
     <Grid>
 
@@ -41,7 +41,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="id" Binding="{Binding Path=id, Mode=OneWay}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Path=StudentName, Mode=OneWay}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Группа" Binding="{Binding Path=StudentGroup, Mode=OneWay}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Группа" Binding="{Binding Path=StudentGroupName, Mode=OneWay}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Результаты" Binding="{Binding Path=SuccesfulTopicsNumber, Mode=OneWay}" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Study.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Study
         public MainWindow()
         {
             InitializeComponent();
-            GlobalConfig.InitializeConnection(DataBaseType.sql);
+            GlobalConfig.InitializeConnection(DataBaseType.sqlite);
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)

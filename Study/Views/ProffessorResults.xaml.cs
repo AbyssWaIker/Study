@@ -20,17 +20,21 @@ namespace Study
     public partial class ProffessorResults : Window
     {
         List<StudentModel> sl = new List<StudentModel>();
+        CourseModel course;
         public ProffessorResults(CourseModel cm)
         {
             InitializeComponent();
             sl = GlobalConfig.connection.GetStudentsByCourseid(cm.id);
 
-            foreach (StudentModel sm in sl)
+            foreach (StudentModel st in sl)
             {
-                sm.grades = GlobalConfig.connection.GetGrades_byStudent(sm.id);
+                st.grades = GlobalConfig.connection.GetStudentGradesforCourse(st.id, cm.id);
+
+                st.StudentGroupName = GlobalConfig.connection.GetGroupName(st.StudentGroupid);
             }
 
             Results.ItemsSource = sl;
+            course = cm;
 
         }
 
@@ -39,7 +43,7 @@ namespace Study
             StudentModel s = (StudentModel)Results.SelectedItem;
             if (s != null)
             {
-                StudentResult sr = new StudentResult(s);
+                StudentResult sr = new StudentResult(s,course);
                 sr.Show();
             }
         }
@@ -53,14 +57,14 @@ namespace Study
                 text.Add("\n****************************************************************************\n" +
                      "****************************************************************************\n");
                 text.Add($"Результаты студента: {sm.StudentName} \n" +
-                    $"Из группы {sm.StudentGroup} \n\n");
+                    $"Из группы {GlobalConfig.connection.GetGroupName(sm.StudentGroupid)} \n\n");
                 foreach (GradeModel g in sm.grades)
                 {
                     text.Add($"\n{g.getGradeInfoForStudent()}\n");
                 }
             }
 
-            System.IO.File.WriteAllLines(@".\InfoForProffessor.txt", text);
+            System.IO.File.WriteAllLines(@".\Results\InfoForProffessor.txt", text);
             MessageBox.Show("Информация сохранена");
         }
 

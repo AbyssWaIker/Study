@@ -20,7 +20,7 @@ namespace Study.Views
     /// </summary>
     public partial class StudentCoursesList : Window
     {
-        List<StudentToCourseRealationModel> access = new List<StudentToCourseRealationModel>();
+        List<GroupToCourseRealationModel> access = new List<GroupToCourseRealationModel>();
         private List<CourseModel> courses = new List<CourseModel>();
         private StudentModel stm = new StudentModel();
         bool freeAccess;
@@ -28,9 +28,8 @@ namespace Study.Views
         public StudentCoursesList(StudentModel st)
         {
             InitializeComponent();
-            InitializeComponent();
 
-            access = GlobalConfig.connection.GetStudentToCourseRelationWithStudentid(st.id);
+            access = GlobalConfig.connection.GetGroupToCourseRelationWithGroupid(st.StudentGroupid);
             freeAccess = Properties.Settings.Default.FreeAccess;
             if (freeAccess)
             {
@@ -38,7 +37,7 @@ namespace Study.Views
             }
             else
             {
-                foreach(StudentToCourseRealationModel StC_R in access)
+                foreach(GroupToCourseRealationModel StC_R in access)
                 {
                     CourseModel availableCourse = GlobalConfig.connection.GetCourse(StC_R.Courseid);
                     courses.Add(availableCourse);
@@ -61,13 +60,13 @@ namespace Study.Views
                 if (freeAccess)
                 {
                     //проверяем есть ли у него доступ к курсу
-                    access = GlobalConfig.connection.GetStudentToCourseRelationWithStudentid(stm.id);
-                    bool avialbleCourse = access.Exists(x => x.Studentid == stm.id);
+                    access = GlobalConfig.connection.GetGroupToCourseRelationWithGroupid(stm.StudentGroupid);
+                    bool avialbleCourse = access.Exists(x => x.Groupid == stm.StudentGroupid);
                     if (!avialbleCourse)
                     {
                         //если нет доступак курсу, в который входит студент, то предоставляем 
-                        StudentToCourseRealationModel model = new StudentToCourseRealationModel(course.id, stm.id);
-                        GlobalConfig.connection.CreateStudentToCourseRealation(model);
+                        GroupToCourseRealationModel model = new GroupToCourseRealationModel(course.id, stm.StudentGroupid);
+                        GlobalConfig.connection.CreateGroupToCourseRealation(model);
                     }
                 }
 

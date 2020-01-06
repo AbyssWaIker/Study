@@ -14,7 +14,7 @@ namespace Study
         public String Name { get; set; }
         public List<TopicModel> topics = new List<TopicModel>();
         public List<StudentModel> students = new List<StudentModel>();
-        public List<StudentToCourseRealationModel> studentToCourseRealations = new List<StudentToCourseRealationModel>();
+        public List<GroupToCourseRealationModel> studentToCourseRealations = new List<GroupToCourseRealationModel>();
         public CourseModel()
         {
         }

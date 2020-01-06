@@ -10,7 +10,7 @@ namespace Study
 {
     public class SqlConnector : IDataConnection
     {
-        private string db = "Studybase";
+        private string db = "SQlStudybase";
 
         public bool CheckifUsernameIsFree(string userName)
         {
@@ -105,11 +105,24 @@ namespace Study
             {
                 var s = new DynamicParameters();
                 s.Add("@name", model.StudentName);
-                s.Add("@group", model.StudentGroup);
+                s.Add("@groupid", model.StudentGroupid);
                 s.Add("@userName", model.getUserName() );
                 s.Add("@StudentPassword", model.getPassword());
                 s.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
                 connection.Execute("dbo.spInsertStudent", s, commandType: CommandType.StoredProcedure);
+                model.id = s.Get<int>("@id");
+            }
+            return model;
+        }
+
+        public GroupModel createGroup(GroupModel model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var s = new DynamicParameters();
+                s.Add("@name", model.GroupName);
+                s.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+                connection.Execute("dbo.spInsertGroup", s, commandType: CommandType.StoredProcedure);
                 model.id = s.Get<int>("@id");
             }
             return model;
@@ -177,15 +190,16 @@ namespace Study
             return model;
         }
 
-        public StudentToCourseRealationModel CreateStudentToCourseRealation(StudentToCourseRealationModel model)
+
+        public GroupToCourseRealationModel CreateGroupToCourseRealation(GroupToCourseRealationModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 var StC_R = new DynamicParameters();
                 StC_R.Add("@Courseid", model.Courseid);
-                StC_R.Add("@Studentid", model.Studentid);
+                StC_R.Add("@Groupid", model.Groupid);
                 StC_R.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
-                connection.Execute("dbo.spInsertStudentToCourseRelation", StC_R, commandType: CommandType.StoredProcedure);
+                connection.Execute("dbo.spInsertGroupToCourseRelation", StC_R, commandType: CommandType.StoredProcedure);
                 model.id = StC_R.Get<int>("@id");
             }
             return model;
@@ -283,6 +297,20 @@ namespace Study
             return output;
         }
 
+        public List<GradeModel> GetStudentGradesforCourse(int studentid, int courseid)
+        {
+
+            List<GradeModel> output = new List<GradeModel>();
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var q = new DynamicParameters();
+                q.Add("@studentid", studentid);
+                q.Add("@courseid", courseid);
+                output = connection.Query<GradeModel>("dbo.spGetCourseGradesByStudent", q, commandType: CommandType.StoredProcedure).ToList();
+            }
+            return output;
+        }
+
         public List<QuestionModel> GetQuestions_byTopic(int topicid)
         {
             List<QuestionModel> output = new List<QuestionModel>();
@@ -308,26 +336,26 @@ namespace Study
             return st;
         }
 
-        public List<StudentToCourseRealationModel> GetStudentToCourseRelationWithCourseID(int Courseid)
+        public List<GroupToCourseRealationModel> GetGroupToCourseRelationWithCourseID(int Courseid)
         {
-            List<StudentToCourseRealationModel> output;
+            List<GroupToCourseRealationModel> output;
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 var sm = new DynamicParameters();
                 sm.Add("@Courseid", Courseid);
-                output = connection.Query<StudentToCourseRealationModel>("dbo.spGetStudentToCourseRelationWithCourseID", sm, commandType: CommandType.StoredProcedure).ToList();
+                output = connection.Query<GroupToCourseRealationModel>("dbo.spGetGroupToCourseRelationWithCourseID", sm, commandType: CommandType.StoredProcedure).ToList();
             }
             return output;
         }
 
-        public List<StudentToCourseRealationModel> GetStudentToCourseRelationWithStudentid(int Studentid)
+        public List<GroupToCourseRealationModel> GetGroupToCourseRelationWithGroupid(int Groupid)
         {
-            List<StudentToCourseRealationModel> output;
+            List<GroupToCourseRealationModel> output;
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 var sm = new DynamicParameters();
-                sm.Add("@Studentid", Studentid);
-                output = connection.Query<StudentToCourseRealationModel>("dbo.spGetStudentToCourseRelationWithStudentid", sm, commandType: CommandType.StoredProcedure).ToList();
+                sm.Add("@Groupid", Groupid);
+                output = connection.Query<GroupToCourseRealationModel>("dbo.spGetGroupToCourseRelationWithGroupid", sm, commandType: CommandType.StoredProcedure).ToList();
             }
             return output;
         }
@@ -343,6 +371,19 @@ namespace Study
                 st.grades = GetGrades_byStudent(st.id);
             }
             return st;
+        }
+
+        public string GetGroupName(int id)
+        {
+            String GroupName;
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var g = new DynamicParameters();
+                g.Add("@id", id);
+                GroupName = connection.QuerySingle<String>("dbo.spGetGroupName", g, commandType: CommandType.StoredProcedure);
+            }
+            return GroupName;
+
         }
 
         public TeacherModel GetTeacherByUserName(string username)
@@ -363,6 +404,16 @@ namespace Study
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 output = connection.Query<StudentModel>("dbo.spGetStudent_All", commandType: CommandType.StoredProcedure).ToList();
+            }
+            return output;
+        }
+
+        public List<GroupModel> GetGroups_All()
+        {
+            List<GroupModel> output = new List<GroupModel>();
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                output = connection.Query<GroupModel>("dbo.spGetGroups_All", commandType: CommandType.StoredProcedure).ToList();
             }
             return output;
         }

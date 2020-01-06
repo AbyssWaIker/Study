@@ -1,4 +1,5 @@
-﻿using Study.Views;
+﻿using Study.Models;
+using Study.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,24 @@ namespace Study
         public Hello__student()
         {
             InitializeComponent();
+            List<GroupModel> Groups = GlobalConfig.connection.GetGroups_All();
+            if(Groups.Count!=0)
+            {
+                StudentGroup.ItemsSource = Groups;
+                StudentGroup.DisplayMemberPath = "GroupName";
+            }
+            else
+            {
+                MessageBox.Show("Невозможно заригистрироватся, потому что нет групп, к которым можно присоединиться\n " +
+                    "Обратитесь к своему преподавателю, чтобы добавить свою группу в программу","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
         }
 
         private void StartLearning_Click(object sender, RoutedEventArgs e)
         {
-            if (StudentName.Text != "" && StudentGroup.Text != "" && StudentUserName.Text != "" && StudentPassword.Text != "" && ConfirmPassword.Text != "" )
+            GroupModel selectedGroup = (GroupModel)StudentGroup.SelectedItem;
+            if (StudentName.Text != "" && selectedGroup != null && StudentUserName.Text != "" && StudentPassword.Text != "" && ConfirmPassword.Text != "" )
             {
                 if(StudentPassword.Text == ConfirmPassword.Text)
                 {
@@ -35,7 +49,7 @@ namespace Study
 
                     if (free)
                     {
-                        StudentModel st = new StudentModel(StudentName.Text, StudentGroup.Text, StudentUserName.Text, StudentPassword.Text);
+                        StudentModel st = new StudentModel(StudentName.Text, selectedGroup.id, StudentUserName.Text, StudentPassword.Text);
                         GlobalConfig.connection.createStudent(st);
 
                         StudentCoursesList tl = new StudentCoursesList(st);

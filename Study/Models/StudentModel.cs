@@ -15,18 +15,18 @@ namespace Study
         public String StudentName { get; set; }
 
         // представляет группу студента
-        public String StudentGroup { get; set; }
+        public int StudentGroupid { get; set; }
+
+        public String StudentGroupName { get; set; }
 
         // представляет оценки студента
         public List<GradeModel> grades { get; set; } = new List<GradeModel>();
 
         //представляет список курсов к которым у студента есть доступ
-        public List<StudentToCourseRealationModel> studentToCourseRealations = new List<StudentToCourseRealationModel>();
+        public List<GroupToCourseRealationModel> studentToCourseRealations = new List<GroupToCourseRealationModel>();
 
-        private String userName;
-        private String StudentPassword;
-
-        public bool access { get; set; }
+        public String userName { get; set; }
+        public String StudentPassword { get; set; }
 
         public String SuccesfulTopicsNumber
         {
@@ -53,10 +53,10 @@ namespace Study
         {
 
         }
-        public StudentModel(string name, string group, string username,string password)
+        public StudentModel(string name, int group, string username,string password)
         {
             StudentName = name;
-            StudentGroup = group;
+            StudentGroupid = group;
             userName = username;
             StudentPassword = password;
         }
