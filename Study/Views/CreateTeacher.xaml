@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study.Views"
         mc:Ignorable="d" FontSize="30"
-        Title="CreateTeacher" Height="500" Width="700">
+        Title="CreateTeacher" Height="500" Width="700"
+         Background="AliceBlue" FontFamily="Sitka Heading">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "20" />
