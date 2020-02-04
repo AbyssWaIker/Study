@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Study.Views.TeacherTopicListUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Study.Views"
+             mc:Ignorable="d" Height="500" Width="500" FontSize="24"
+        Background="AliceBlue" FontFamily="Sitka Heading">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "10" />
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1"
+                    Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBlock Text="Курс:" FontSize="30" />
+            <TextBox x:Name="CourseNameText" MinWidth="317" 
+                         MaxLength="50" TextChanged="CourseNameText_TextChanged"></TextBox>
+        </StackPanel>
+
+        <TextBlock Text="Темы:" FontSize="24" HorizontalAlignment="Center" 
+                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <ListBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     x:Name="AllTopics" Width="450" 
+                     DisplayMemberPath = "OrderAndName" 
+                     SelectionChanged="AllTopics_SelectionChanged"/>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"  Orientation="Horizontal" >
+            <Button x:Name="ChangeOrderButton" Content="Сменить порядок выбранной темы на №" 
+                    Click="ChangeOrderButton_Click" Margin="10" FontSize="18"/>
+
+            <TextBox x:Name="OrderNumberValue" Text="1" FontSize="36"/>
+        </StackPanel>
+
+        
+
+        <Button x:Name="AddTopic" Content="Добавить тему" 
+                Grid.Column="1" Grid.Row="5" Margin="5"
+                FontSize="24" Click="AddTopic_Click"/>
+
+        <Button x:Name="ChangeTopicButton" Content="Изменить тему" 
+                Margin="5" IsEnabled="False"  Grid.Row="5" Grid.Column="2" 
+                FontSize="24" Click="ChangeTopicButton_Click"/>
+
+        <Button x:Name="DeleteTopicButton" Margin="5" 
+                Grid.Row="5" Grid.Column="3" IsEnabled="False" Click="DeleteTopicButton_Click"> 
+            <Button.Content>
+                <Image Width="32" Height="31">
+                    <Image.Source>
+                        <BitmapImage UriSource="..\Images\trashcanIcon.png"/>
+                    </Image.Source>
+                </Image>
+            </Button.Content>
+        </Button>
+
+
+        <Button x:Name="FinishChanges" Content="Закончить изменение" 
+                Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" 
+                Margin="5" FontSize="36" Click="FinishChanges_Click"/>
+
+        <TextBlock Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" 
+                   FontSize="36" Margin="5,10,5,0" >Разное:</TextBlock>
+        <Button x:Name="GiveAccess" Content="Предоставить доступ к курсу" 
+                Grid.Column="1" Grid.Row="8"  
+                Grid.ColumnSpan="2" Margin="5"
+                Command="local:StartWindowShell.LoadTeacherGiveAccessScreen"/>
+
+        <Button x:Name="CheckResults" Content="Просмотреть результаты учебы" 
+                Grid.Column="1" Grid.Row="9" 
+                Grid.ColumnSpan="2" Margin="5" 
+                Command="local:StartWindowShell.LoadTeacherResultScreen"/>
+
+    </Grid>
+</UserControl>

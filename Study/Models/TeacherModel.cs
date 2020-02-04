@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Study
         public String userName { get; set; }
         public String Password { get; set; }
         public String Position { get; set; }
-        public List<CourseModel> courses = new List<CourseModel>();
+        public ObservableCollection<CourseModel> courses { get; set; }  = new ObservableCollection<CourseModel>();
 
         public TeacherModel()
         {

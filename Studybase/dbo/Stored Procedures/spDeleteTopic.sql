@@ -4,5 +4,5 @@ AS
 
 begin
 set nocount on  
-	delete from dbo.Topic where id = @id
+	delete from dbo.Topics where id = @id
 end

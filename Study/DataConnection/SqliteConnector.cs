@@ -197,7 +197,7 @@ namespace Study.DataConnection
                                     values(@TopicName, @TopicOrderNumber, @Courseid); ";
                 connection.Execute(Query, model);
                 int id = connection.QuerySingle<int>("select id from Topics where topicName=@topicName AND TopicOrderNumber=@TopicOrderNumber AND Courseid=@Courseid LIMIT 1;", model);
-                model.setID(id);
+                model.id = id;
             }
             return model;
         }
@@ -343,6 +343,19 @@ namespace Study.DataConnection
             return output;
         }
 
+        public int getCourseidByTopicid(int topicid)
+        {
+            int Courseid;
+
+            using (IDbConnection connection = new SQLiteConnection(GlobalConfig.CnnString(db)))
+            {
+                Courseid = connection.QuerySingle<int>(@"SELECT Courses.id  from Courses  
+	                                                        inner join Topics on Topics.Courseid = Courses.id 
+	                                                        where Topics.Id ='" + topicid +"' limit 1");
+            }
+            return Courseid;
+        }
+
         public List<CourseModel> GetCourseModelsAll()
         {
             List<CourseModel> output = new List<CourseModel>();
@@ -363,12 +376,35 @@ namespace Study.DataConnection
             return output;
         }
 
+        public string getCourseNamebyId(int id)
+        {
+            String output;
+            using (IDbConnection connection = new SQLiteConnection(GlobalConfig.CnnString(db)))
+            {
+                output = connection.QuerySingle<String>(@"SELECT Name from Courses
+	                                                        where Id ='" + id + "' Limit 1");
+            }
+            return output;
+        }
+
+        public string GetCourseNameByTopicid(int topicid)
+        {
+            String output;
+            using (IDbConnection connection = new SQLiteConnection(GlobalConfig.CnnString(db)))
+            {
+                output = connection.QuerySingle<String>(@"SELECT Name from Courses  
+	                                                        inner join Topics on Topics.Courseid = Courses.id 
+	                                                        where Topics.Id ='"+topicid+ "' Limit 1");
+            }
+            return output;
+        }
+
         public List<GradeModel> GetGrades_byStudent(int studentid)
         {
             List<GradeModel> output = new List<GradeModel>();
             using (IDbConnection connection = new SQLiteConnection(GlobalConfig.CnnString(db)))
             {
-                output = connection.Query<GradeModel>("select * from Courses where studentid = '" + studentid + "'").ToList();
+                output = connection.Query<GradeModel>("select * from Grades where studentid = '" + studentid + "'").ToList();
             }
             return output;
         }
@@ -470,7 +506,7 @@ namespace Study.DataConnection
             {
                 output = connection.Query<StudentModel>(@"select Students.Id, StudentName, StudentGroupid from Students
                                                           inner JOIN StudentToCourse on StudentToCourse.Groupid=Students.StudentGroupid
-                                                          where StudentToCourse.Courseid= '" + Courseid + "'").ToList();
+                                                          where StudentToCourse.Courseid= '" + Courseid + "' and StudentToCourse.Access = '1' ").ToList();
             }
             return output;
         }
@@ -572,6 +608,16 @@ namespace Study.DataConnection
                 connection.Execute(@"update Courses 
                                      set Name = @Name
                                      where id = @id;", model);
+            }
+        }
+
+        public void updateGroupToCourseRelation(GroupToCourseRealationModel relation)
+        {
+            using (IDbConnection connection = new SQLiteConnection(GlobalConfig.CnnString(db)))
+            {
+                connection.Execute(@"update StudentToCourse
+                                     set Access = @Access
+	                                 where id = @id;", relation);
             }
         }
 

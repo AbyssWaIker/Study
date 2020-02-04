@@ -3,5 +3,5 @@
 	@StudentPassword nvarchar(50) output
 AS
 begin
-	SELECT StudentPassword from dbo.Student where userName=@userName
+	SELECT TOP 1 StudentPassword from dbo.Student where userName=@userName
 end

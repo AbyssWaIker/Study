@@ -5,7 +5,7 @@ AS
 
 begin
 	set nocount on;
-	update dbo.Topic 
+	update dbo.Topics 
 	set topicName = @topicName
 	where id = @id;
 end

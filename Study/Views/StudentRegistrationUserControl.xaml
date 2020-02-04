@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Study.Views.StudentRegistrationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Study.Views"
+             mc:Ignorable="d" Height="500" Width="500" FontSize="24"
+        Background="AliceBlue" FontFamily="Sitka Heading">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "20" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Регистрация" FontSize="56" Grid.Column="1" Grid.Row="1" 
+                   Margin="20" Grid.ColumnSpan="2" HorizontalAlignment="Right"/>
+        <TextBlock Text="Представься:" FontSize="36" Grid.Column="1" Grid.Row="2" 
+                   Margin="20,0,0,0" HorizontalAlignment="Center" Grid.ColumnSpan="2" />
+        <TextBlock Text="Ф.И.О.:" FontSize="30" Grid.Column="1" Grid.Row="3" 
+                   HorizontalAlignment="Right" />
+        <TextBox x:Name="StudentName" Grid.Column="2" Grid.Row="3" 
+                 FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
+        <TextBlock Text="Группа:" FontSize="30" Grid.Column="1" Grid.Row="4" 
+                   HorizontalAlignment="Right" />
+        <ComboBox x:Name="StudentGroup" Grid.Column="2" Grid.Row="4" 
+                 FontSize="24" DisplayMemberPath="{Binding Path=GroupName, Mode=OneWay}"/>
+        <TextBlock Text="Логин:" FontSize="30" Grid.Column="1" Grid.Row="5" 
+                   HorizontalAlignment="Right" Margin="0,20,0,0"/>
+        <TextBox x:Name="StudentUserName" Grid.Column="2" Grid.Row="5" MaxLength="50"
+                 FontSize="24"  VerticalAlignment="Center" Margin="0,20,0,0"/>
+        <TextBlock Text="Пароль:" FontSize="30" Grid.Column="1" Grid.Row="6" 
+                   HorizontalAlignment="Right" />
+        <PasswordBox x:Name="StudentPassword" Grid.Column="2" Grid.Row="6" 
+                 FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
+        <TextBlock Text="Повтор:" FontSize="30" Grid.Column="1" Grid.Row="7" 
+                   HorizontalAlignment="Right" />
+        <PasswordBox x:Name="ConfirmPassword" Grid.Column="2" Grid.Row="7" 
+                 FontSize="24"  VerticalAlignment="Center" MaxLength="50"/>
+
+        <Button Grid.Column="1" Grid.Row="8"  Margin="10,25" 
+                Command="local:StartWindowShell.LoadChoiceScreen" IsCancel="True" >Назад</Button>
+        <Button x:Name="StartLearning" Content="Начать обучение" Margin="10,15"
+                Grid.Column="2" Grid.Row="8" IsDefault="True"  
+                FontSize="30" Click="StartLearning_Click"/>
+
+
+
+
+    </Grid>
+</UserControl>

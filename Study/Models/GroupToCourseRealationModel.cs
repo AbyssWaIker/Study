@@ -11,6 +11,28 @@ namespace Study.Models
         public int id { get; set; }
         public int Courseid { get; set; }
         public int Groupid { get; set; }
+        public int Access { get; set; }
+        public string GroupName
+        {
+            get
+            {
+                return GlobalConfig.connection.GetGroupName(Groupid);
+            }
+        }
+        public bool AccessBool
+        {
+            get
+            {
+                if(Access == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
 
         public GroupToCourseRealationModel()
         {
@@ -21,6 +43,7 @@ namespace Study.Models
         {
             Courseid = cid;
             Groupid = sid;
+            Access = 0;
         }
     }
 }

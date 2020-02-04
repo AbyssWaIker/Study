@@ -30,6 +30,13 @@ namespace Study
                 return GlobalConfig.connection.GetTopicOrderNumberByid(Topicid);
             }
         }
+        public int Courseid
+        {
+            get
+            {
+                return GlobalConfig.connection.getCourseidByTopicid(Topicid);
+            }
+        }
 
         public int QuestionAnsweredCorrectly { get; set; }
         public int QuestionAnswered { get; set; }
@@ -53,12 +60,12 @@ namespace Study
             TopicModel tm = GlobalConfig.connection.getTopicById(Topicid);
             if (isSuccesful)
             {
-                return $"В теме №{tm.TopicOrderNumber}: {tm.topicName} было правильно отвечено " +
-                    $"на {QuestionAnsweredCorrectly} из {QuestionAnswered} вопросов.\nТема завершена успешно";
+                return $"В теме №{tm.TopicOrderNumber}: {tm.topicName}, курса {GlobalConfig.connection.getCourseNamebyId(Courseid)}  \nбыло правильно отвечено " +
+                    $"на {QuestionAnsweredCorrectly} из {QuestionAnswered} вопросов.\nТема завершена успешно\n";
             } 
             else 
-                return $"В теме №{tm.TopicOrderNumber}: {tm.topicName} было правильно отвечено " +
-                    $"на {QuestionAnsweredCorrectly} из {QuestionAnswered} вопросов.\nТема провалена";
+                return $"В теме №{tm.TopicOrderNumber}: {tm.topicName}, курса {GlobalConfig.connection.getCourseNamebyId(Courseid)}  \nбыло правильно отвечено " +
+                    $"на {QuestionAnsweredCorrectly} из {QuestionAnswered} вопросов.\nТема провалена\n";
             
         }
 

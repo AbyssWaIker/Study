@@ -6,7 +6,7 @@ AS
 
 begin
 	set nocount on;
-	update dbo.Topic 
+	update dbo.Topics 
 	set TopicOrderNumber = @TopicOrderNumber 
 	where id = @id;
 end

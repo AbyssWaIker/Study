@@ -4,6 +4,6 @@
     [TopicPortionName] NVARCHAR (50)  NOT NULL,
     [TopicPortionText] NVARCHAR (MAX) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TopicPortions_Topicid] FOREIGN KEY ([Topicid]) REFERENCES [dbo].[Topic] ([Id])
+    CONSTRAINT [FK_TopicPortions_Topicid] FOREIGN KEY ([Topicid]) REFERENCES [dbo].[Topics] ([Id])
 );
 

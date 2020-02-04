@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Study.Views.NewOrOld"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Study.Views"
+             mc:Ignorable="d" Height="500" Width="500" FontSize="48"
+        Background="AliceBlue" FontFamily="Sitka Heading">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "10" />
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Приветствую!" Margin="0,20,0,60"
+                   HorizontalAlignment="Center"/>
+            <Button x:Name="Registration" Command="local:StartWindowShell.LoadRegistrationScreen"
+                Content="Зарегистрироваться" Margin="10"/>
+            <Button x:Name="Login" Command="local:StartWindowShell.LoadLoginScreen"
+                Content="Войти"  Margin="10,10,10,80"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -17,13 +17,16 @@ namespace Study
         // представляет группу студента
         public int StudentGroupid { get; set; }
 
-        public String StudentGroupName { get; set; }
+        public String StudentGroupName 
+        {
+            get
+            {
+                return GlobalConfig.connection.GetGroupName(StudentGroupid);
+            }
+        }
 
         // представляет оценки студента
         public List<GradeModel> grades { get; set; } = new List<GradeModel>();
-
-        //представляет список курсов к которым у студента есть доступ
-        public List<GroupToCourseRealationModel> studentToCourseRealations = new List<GroupToCourseRealationModel>();
 
         public String userName { get; set; }
         public String StudentPassword { get; set; }

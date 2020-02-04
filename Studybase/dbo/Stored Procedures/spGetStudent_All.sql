@@ -5,6 +5,6 @@ Begin
 
 set nocount on
 
-select Id, StudentName, StudentGroup from dbo.Student
+select Id, StudentName, StudentGroupid from dbo.Student
 
 end

@@ -31,6 +31,7 @@ namespace Study
         List<GroupModel> GetGroups_All();
         CourseModel GetCourse(int id);
         String GetGroupName(int id);
+        String GetCourseNameByTopicid(int topicid);
         List<StudentModel> getStudents_All();
         List<StudentModel> GetStudentsByCourseid(int Courseid);
         List<GroupToCourseRealationModel> GetGroupToCourseRelationWithCourseID(int Courseid);
@@ -48,6 +49,8 @@ namespace Study
         TeacherModel GetTeacherByUserName(string username);
         TopicModel getTopicById(int id);
         String getTopicNameById(int id);
+        String getCourseNamebyId(int id);
+        int getCourseidByTopicid(int topicid);
         int GetTopicOrderNumberByid(int id);
         int GetNumberofTopicsByCouriseid(int Courseid);
         void deleteQuestionWithTopic(int Topicid);
@@ -68,5 +71,6 @@ namespace Study
         void updateCourseName(CourseModel model);
         void updateTopicPortion(TopicPortionModel model);
         void updateQuestion(QuestionModel model);
+        void updateGroupToCourseRelation(GroupToCourseRealationModel relation);
     }
 }

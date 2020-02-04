@@ -9,7 +9,7 @@ namespace Study
         /// <summary>
         /// представляет уникальный идентификатор темы
         /// </summary>
-        private int id;
+        public int id { get; set; }
 
         public int Courseid { get; set; }
 
@@ -37,13 +37,18 @@ namespace Study
                 return $"{TopicOrderNumber} {topicName}";
             }
         }
-        public int getID()
+
+        public TopicModel()
         {
-            return id;
+
         }
-        public void setID(int i)
+
+        public TopicModel(int Id, string name, List<TopicPortionModel> Portions, List<QuestionModel> QuestionsList)
         {
-            id = i;
+            id = Id;
+            topicName = name;
+            TopicPortions = Portions;
+            Questions = QuestionsList;
         }
     }
 }

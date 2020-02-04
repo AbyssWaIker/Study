@@ -12,9 +12,9 @@ namespace Study
         public int id { get; set; }
         public int Teacherid { get; set; }
         public String Name { get; set; }
-        public List<TopicModel> topics = new List<TopicModel>();
-        public List<StudentModel> students = new List<StudentModel>();
-        public List<GroupToCourseRealationModel> studentToCourseRealations = new List<GroupToCourseRealationModel>();
+        public List<TopicModel> topics { get; set; } = new List<TopicModel>();
+        public List<StudentModel> students { get; set; } = new List<StudentModel>();
+        public List<GroupToCourseRealationModel> studentToCourseRealations { get; set; } = new List<GroupToCourseRealationModel>();
         public CourseModel()
         {
         }

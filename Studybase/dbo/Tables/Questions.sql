@@ -5,6 +5,6 @@
     [correctAnswer] NVARCHAR (50)  NOT NULL,
     [timeToAnswer]  INT            NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Questions_ToTopicid] FOREIGN KEY ([topicid]) REFERENCES [dbo].[Topic] ([Id])
+    CONSTRAINT [FK_Questions_ToTopicid] FOREIGN KEY ([topicid]) REFERENCES [dbo].[Topics] ([Id])
 );
 

@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Study.Views.AddTopicQuestionUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Study.Views"
+             mc:Ignorable="d" Height="500" Width="500" FontSize="16"
+        Background="AliceBlue" FontFamily="Sitka Heading">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "10" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="AddOrChange" Text="Добавить вопрос" FontSize="36" Margin="0,20,0,0" 
+                   Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+        <Label Content="Текст Вопроса:" Grid.Column="1" Grid.Row="2"/>
+        <TextBox x:Name="QuestionTextValue"  TextWrapping="Wrap"
+                 Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
+                 MinHeight="60" AcceptsReturn="True"/>
+
+        <Label Content="Правильный ответ:" Grid.Column="1" Grid.Row="4"/>
+
+        <TextBox x:Name="CorrectAnswerTextValue" Grid.Column="2" Grid.Row="4"
+                         MinWidth="228" MaxLength="50"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
+                   >Список неправильных ответов</TextBlock>
+        <ListBox x:Name="wrongAnswers"  Grid.Row="6" Grid.Column="1"
+                 Grid.ColumnSpan="2" Margin="0,0,0,5"
+                 DisplayMemberPath="{Binding Path = TextOfWrongAnswer}"/>
+
+        <Button x:Name="addWrongAnswer" Click="addWrongAnswer_Click"
+                Grid.Column="1" Grid.Row="7" Margin="5">Добавить</Button>
+        <TextBox x:Name="WrongAnswerTextValue" Grid.Column="2" Grid.Row="7"
+                 Margin="5" MinWidth="176" MaxLength="50"/>
+
+
+        <Button x:Name="deleteWrongAnswer" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2"
+                Margin="10" Click="deleteWrongAnswer_Click">Удалить выбранный ответ</Button>
+
+
+        <Label Content="Время на ответ (сек.):" Grid.Column="1" Grid.Row="9"/>
+        <TextBox x:Name="TimeToAnswerValue"  Grid.Column="2" Grid.Row="9" Text="30"/>
+
+
+        <Button x:Name="Back" Content="Отмена" FontSize="30" IsCancel="True"
+                Command="local:StartWindowShell.LoadTeacherAddTopicScreen"
+                Grid.Column="1" Grid.Row="10" Margin="10"/>
+
+        <Button x:Name="ConfirmQuestionButton" Content="Сохранить" 
+                 Grid.Column="2" Grid.Row="10" Margin="5" IsDefault="True"
+                FontSize="36" Click="ConfirmQuestionButton_Click"/>
+    </Grid>
+</UserControl>

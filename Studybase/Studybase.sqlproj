@@ -6,7 +6,7 @@
     <Name>StudyBase</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{88e09b5d-3268-4786-93ee-a2460bed318c}</ProjectGuid>
+    <ProjectGuid>{4e60b786-b354-4041-bcfe-cb50f8caf722}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -68,6 +68,27 @@
     <Build Include="dbo\Tables\Student.sql" />
     <Build Include="dbo\Tables\Topics.sql" />
     <Build Include="dbo\Tables\TopicPortions.sql" />
+    <Build Include="dbo\Tables\WrongAnswers.sql" />
+    <Build Include="dbo\Tables\Teachers.sql" />
+    <Build Include="dbo\Tables\Groups.sql" />
+    <Build Include="dbo\Tables\Courses.sql" />
+    <Build Include="dbo\Tables\StudentToCourse.sql" />
+    <Build Include="dbo\Stored Procedures\spGetGroupToCourseRelationWithCourseID.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertGroupToCourseRelation.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteGroupToCourseRelation.sql" />
+    <Build Include="dbo\Stored Procedures\spGetGroupToCourseRelationWithGroupid.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCourse.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTeachersNumber.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteWrongQuestionAnswerWithQuestionID.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertWrongAnswerToQuestion.sql" />
+    <Build Include="dbo\Stored Procedures\spGetGroupName.sql" />
+    <Build Include="dbo\Stored Procedures\spGetGroups_All.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertGroup.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTeacherByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTeacherPasswordByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spCheckifTeacherUsernameIsFree.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteWrongQuestionAnswer.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCourseGradesByStudent.sql" />
     <Build Include="dbo\Stored Procedures\SpDeleteGradeWithTopic.sql" />
     <Build Include="dbo\Stored Procedures\spDeleteQuestion.sql" />
     <Build Include="dbo\Stored Procedures\spDeleteQuestionWithTopic.sql" />
@@ -80,29 +101,36 @@
     <Build Include="dbo\Stored Procedures\spGetStudentByid.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicByid.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicPortions_ByTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTopicsByCourse.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicsAll.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCoursesAll.sql" />
     <Build Include="dbo\Stored Procedures\SpInsertGrade.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertCourse.sql" />
     <Build Include="dbo\Stored Procedures\spInsertQuestion.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCoursesByteacher.sql" />
     <Build Include="dbo\Stored Procedures\spInsertStudent.sql" />
+    <Build Include="dbo\Stored Procedures\spUpdateCourseName.sql" />
     <Build Include="dbo\Stored Procedures\spInsertTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spGetWrongAnswers_byQuestionID.sql" />
     <Build Include="dbo\Stored Procedures\spInsertTopicPortion.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCourseName_byTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteTopicWithCourseID.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateQuestion.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCourseId_byTopic.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteGroupToCourseRelationWithCourseID.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateTopicName.sql" />
+    <Build Include="dbo\Stored Procedures\spGetCourseName_byid.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteCourse.sql" />
     <Build Include="dbo\Stored Procedures\SpUpdateTopicOrderNumber.sql" />
     <Build Include="dbo\Stored Procedures\spUpdateTopicPortion.sql" />
     <Build Include="dbo\Stored Procedures\spCheckifUsernameIsFree.sql" />
+    <Build Include="dbo\Stored Procedures\spInsertTeacher.sql" />
+    <Build Include="dbo\Stored Procedures\spUpdateCourseToGroupRealtion.sql" />
     <Build Include="dbo\Stored Procedures\spGetPasswordByUserName.sql" />
     <Build Include="dbo\Stored Procedures\spGetStudentByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spGetStudentByCourseid.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTopicsNumberByCourseid.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicNameByid.sql" />
     <Build Include="dbo\Stored Procedures\spGetTopicOrderNumberByid.sql" />
-    <Build Include="dbo\Tables\WrongAnswers.sql" />
-    <Build Include="dbo\Tables\Teachers.sql" />
-    <Build Include="dbo\Tables\Courses.sql" />
-    <Build Include="dbo\Tables\StudentToCourse.sql" />
-    <Build Include="dbo\Stored Procedures\spInsertWrongAnswerToQuestion.sql" />
-    <Build Include="dbo\Stored Procedures\spDeleteWrongQuestionAnswerWithQuestionID.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="StudyBase.refactorlog" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,6 @@ Begin
 
 set nocount on
 
-select * from dbo.Topic
+select * from dbo.Topics
 
 end

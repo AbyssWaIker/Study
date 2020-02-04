@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Study.Views.StudentTopicPortionUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Study.Views"
+             mc:Ignorable="d" Height="500" Width="500" FontSize="18"
+        Background="AliceBlue" FontFamily="Sitka Heading">
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "10" />
+            <ColumnDefinition Width = "*" />
+
+            <ColumnDefinition Width = "10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock FontSize="36" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap">
+                <Run>Название:</Run>
+                <Run x:Name="TopicPortionNameValue">[Название]</Run>
+        </TextBlock>
+        <TextBlock Text="Текст:" FontSize="36" Grid.Column="1" Grid.Row="3"/>
+        
+        <FlowDocumentScrollViewer VerticalScrollBarVisibility="Auto" 
+                                  Grid.Column="1" Grid.Row="4" >
+            <FlowDocument>
+                <Paragraph >
+                    <Run x:Name="TopicPortionTextValue">Текст</Run>
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+        
+        <Button x:Name="Next" Content="Далее" FontSize="36" 
+                Grid.Column="1" Grid.Row="5" Margin="20"
+                IsDefault="True" HorizontalAlignment="Right" 
+                Click="Next_Click" />
+    </Grid>
+</UserControl>

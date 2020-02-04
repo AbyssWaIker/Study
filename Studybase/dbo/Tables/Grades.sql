@@ -5,7 +5,7 @@
     [QuestionAnsweredCorrectly] INT NOT NULL,
     [QuestionAnswered]          INT NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Grades_TopicID] FOREIGN KEY ([Topicid]) REFERENCES [dbo].[Topic] ([Id]),
+    CONSTRAINT [FK_Grades_TopicID] FOREIGN KEY ([Topicid]) REFERENCES [dbo].[Topics] ([Id]),
     CONSTRAINT [FK_Grades_Tostudentid] FOREIGN KEY ([studentid]) REFERENCES [dbo].[Student] ([Id])
 );
 

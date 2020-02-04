@@ -23,10 +23,7 @@ namespace Study
                 u.Add("@get", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
                 connection.Execute("dbo.spCheckifUsernameIsFree", u, commandType: CommandType.StoredProcedure);
                 get = u.Get<int>("@get");
-                if (get==1) 
-                {
-                    free = true;
-                }
+                free = Convert.ToBoolean(get);
             } 
             return free;
         }
@@ -42,10 +39,7 @@ namespace Study
                 u.Add("@get", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
                 connection.Execute("dbo.spCheckifTeacherUsernameIsFree", u, commandType: CommandType.StoredProcedure);
                 get = u.Get<int>("@get");
-                if (get == 1)
-                {
-                    free = true;
-                }
+                free = Convert.ToBoolean(get);
             }
             return free;
         }
@@ -155,7 +149,7 @@ namespace Study
                 t.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
                 connection.Execute("dbo.spInsertTopic", t, commandType: CommandType.StoredProcedure);
                 int TopicID = t.Get<int>("@id");
-                model.setID(TopicID);
+                model.id = TopicID;
             }
             return model;
         }
@@ -457,6 +451,45 @@ namespace Study
             return topicname;
         }
 
+        public string GetCourseNameByTopicid(int topicid)
+        {
+            string CourseName;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var sm = new DynamicParameters();
+                sm.Add("@topicid", topicid);
+                CourseName = connection.QuerySingle<String>("dbo.spGetCourseName_byTopic", sm, commandType: CommandType.StoredProcedure);
+            }
+            return CourseName;
+        }
+
+        public string getCourseNamebyId(int id)
+        {
+            string CourseName;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var sm = new DynamicParameters();
+                sm.Add("@id", id);
+                CourseName = connection.QuerySingle<String>("dbo.spGetCourseName_byid", sm, commandType: CommandType.StoredProcedure);
+            }
+            return CourseName;
+        }
+
+        public int getCourseidByTopicid(int topicid)
+        {
+            int Courseid;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var sm = new DynamicParameters();
+                sm.Add("@topicid", topicid);
+                Courseid = connection.QuerySingle<int>("dbo.spGetCourseId_byTopic", sm, commandType: CommandType.StoredProcedure);
+            }
+            return Courseid;
+        }
+
         public int GetTopicOrderNumberByid(int id)
         {
             int TopicOrderNumber;
@@ -640,7 +673,7 @@ namespace Study
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 var t = new DynamicParameters();
-                t.Add("@id", model.getID());
+                t.Add("@id", model.id);
                 t.Add("@topicName", model.topicName);
                 connection.Execute("dbo.spUpdateTopicName", t, commandType: CommandType.StoredProcedure);
             }
@@ -657,13 +690,24 @@ namespace Study
             }
         }
 
+        public void updateGroupToCourseRelation(GroupToCourseRealationModel relation)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
+            {
+                var c = new DynamicParameters();
+                c.Add("@id", relation.id);
+                c.Add("@Access", relation.Access);
+                connection.Execute("dbo.spUpdateCourseToGroupRealtion", c, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public void UpdateTopicOrder(TopicModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 var t = new DynamicParameters();
                 t.Add("@TopicOrderNumber", model.TopicOrderNumber);
-                t.Add("@id",model.getID());
+                t.Add("@id",model.id);
                 connection.Execute("dbo.SpUpdateTopicOrderNumber", t, commandType: CommandType.StoredProcedure);
             }
         }

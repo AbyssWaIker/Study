@@ -7,6 +7,6 @@ Begin
 
 set nocount on
 
-select * from dbo.Student where userName=@userName
+select TOP 1 * from dbo.Student where userName=@userName
 
 end

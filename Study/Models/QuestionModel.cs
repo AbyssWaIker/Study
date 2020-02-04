@@ -13,6 +13,6 @@ namespace Study
         public String CorrectAnswer { get; set; }
         public int timeToAnswer { get; set; }
 
-        public List<WrongAnswerModel> wrongAnswers = new List<WrongAnswerModel>();
+        public List<WrongAnswerModel> wrongAnswers { get; set; } = new List<WrongAnswerModel>();
     }
 }

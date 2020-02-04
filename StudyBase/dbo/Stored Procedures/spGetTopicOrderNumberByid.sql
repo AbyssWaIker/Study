@@ -6,6 +6,6 @@ Begin
 
 set nocount on
 
-select TopicOrderNumber from dbo.Topic where id=@id
+select TOP 1 TopicOrderNumber from dbo.Topics where id=@id
 
 end
