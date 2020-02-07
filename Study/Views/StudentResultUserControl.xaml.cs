@@ -27,7 +27,7 @@ namespace Study.Views
 
             StudentsNameValue.Text = UsersDataControl.currentStudent.StudentName;
             StudentsGroupValue.Text = GlobalConfig.connection.GetGroupName(UsersDataControl.currentStudent.StudentGroupid);
-            FinishedCourseValue.Text = UsersDataControl.CurrentCourse.Name;
+            FinishedCourseValue.Text = UsersDataControl.currentCourse.Name;
             GradesResults.ItemsSource = UsersDataControl.currentStudent.grades;
         }
 

@@ -30,7 +30,7 @@
                         <TextBlock x:Name="UnfinishedTopicLabel" Text="Незавершенные Темы:" FontSize="36"/>
                         <ListBox x:Name="UnfinishedTopicList" MinHeight="240" MinWidth="200"
                                  DisplayMemberPath="OrderAndName"/>
-                        <Button x:Name="StartTopic" Content="Пройти тему" FontSize="36"
+                        <Button x:Name="StartTopicButton" Content="Пройти тему" FontSize="36"
                                 Margin="10" Click="StartTopic_Click" IsDefault="True"/>
                     </StackPanel>
                 </TabItem.Content>
@@ -44,7 +44,7 @@
                         <TextBlock Text="Завершенные Темы:" FontSize="36"/>
                         <ListBox x:Name="finishedTopicList" MinHeight="240" MinWidth="200"
                                  DisplayMemberPath="OrderAndName"/>
-                        <Button x:Name="ViewResult" Content="Посмотреть результаты"
+                        <Button x:Name="ViewResultButton" Content="Посмотреть результаты"
                                 Margin="10" FontSize="36" IsEnabled="False" IsDefault="True" 
                                 Command="local:StartWindowShell.LoadStudentResultScreen"/>
                     </StackPanel>

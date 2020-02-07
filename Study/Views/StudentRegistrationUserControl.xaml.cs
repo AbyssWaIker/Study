@@ -48,24 +48,24 @@ namespace Study.Views
 
             switch (result)
             {
+                //если все введенные данные верны и регистрация прошла успешно, открывается стартовый экран студента
                 case 0:
                     CommandBinding openStudentCoursesScreen = new CommandBinding(StartWindowShell.LoadStudentCourseListScreen);
                     openStudentCoursesScreen.Command.Execute("placeholder object");
                     break;
 
-
+                //если логин занят, всплывает соответствующее сообщение
                 case 1:
-
-                    MessageBox.Show("Никнейм уже занят");
+                    MessageBox.Show("Логин уже занят");
                     break;
 
+                //если пароли не совпадают, всплывает соответствующее сообщение
                 case 2:
-
                     MessageBox.Show("Пароли не совпадают", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
 
+                //если пользователь не ввел свои данные , всплывает соответствующее сообщение
                 case 3:
-
                     MessageBox.Show("Введите свои данные", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
             }

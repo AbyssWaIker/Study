@@ -12,37 +12,79 @@ namespace Study.Logic
 {
     public static class LearningMaterialInsert
     {
-
+        /// <summary>
+        /// Флажок показывающий, создается ли новый курс или просматривается старый
+        /// </summary>
         public static bool isCourseNew { get; set; }
 
-        //переменная для хранения информации - мы вводим новую тему или изменяем старую?
+        /// <summary>
+        /// Флажок показывающий, мы вводим новую тему или изменяем старую?
+        /// </summary>
         public static bool newTopic { get; set; }
 
+        /// <summary>
+        /// Флажок показывающий, мы вводим новый вопрос темы или изменяем старый?
+        /// </summary>
         public static bool newQuestion { get; set; }
+
+        /// <summary>
+        /// Флажок показывающий, мы вводим новый раздел темы или изменяем старый?
+        /// </summary>
         public static bool newPortion { get; set; }
 
-        //переменная для хранения оригинала раздела, который мы изменим в отдельном окне
+        /// <summary>
+        /// переменная для хранения оригинала раздела, который мы изменим
+        /// </summary>
         public static TopicPortionModel topicPortionForChange { get; set; }
 
-        //переменная для хранения оригинала вопроса, который мы изменим в отдельном окне
+        /// <summary>
+        /// переменная для хранения оригинала вопроса, который мы изменим
+        /// </summary>
         public static QuestionModel questionForChange { get; set; }
 
+        /// <summary>
+        /// переменная для хранения информации, по текущей теме
+        /// </summary>
         public static TopicModel CurrentTopic { get; set; }
+
+        /// <summary>
+        /// Отображаемый список разделов текущей темы
+        /// </summary>
         public static ObservableCollection<TopicPortionModel> PortionList { get; set; } = new ObservableCollection<TopicPortionModel>();
+
+        /// <summary>
+        /// Отображаемый список вопросов текущей темы
+        /// </summary>
         public static ObservableCollection<QuestionModel> QuestionList { get; set; } = new ObservableCollection<QuestionModel>();
 
+        /// <summary>
+        /// переменная для хранения информации, по текущему вопросу
+        /// </summary>
+        public static WrongAnswerModel WrongAnswer { get; set; } = new WrongAnswerModel();
+
+        /// <summary>
+        /// Отображаемый список неправильных ответов текущего вопросв
+        /// </summary>
         public static ObservableCollection<String> WrongAnswerText { get; set; } = new ObservableCollection<String>();
 
 
-        public static WrongAnswerModel WrongAnswer { get; set; } = new WrongAnswerModel();
 
-
-        //список идентификаторов вопросов, которые удалятся после нажатие кнопки "изменить тему"
+        /// <summary>
+        /// список идентификаторов вопросов, которые удалятся после нажатие кнопки "сохранить изменения"
+        /// </summary>
         public static List<int> QuestionsToDelete { get; set; } = new List<int>();
 
-        //список идентификаторов вопросов, которые удалятся после нажатие кнопки "изменить тему"
+        /// <summary>
+        /// список идентификаторов вопросов, которые удалятся после нажатие кнопки "сохранить изменения"
+        /// </summary>
         public static List<int> TopicportionsToDelete { get; set; } = new List<int>();
 
+        /// <summary>
+        /// Метод изменяющий или создающий раздел темы
+        /// </summary>
+        /// <param name="topicPortion">раздел</param>
+        /// <param name="name">имя раздела</param>
+        /// <param name="text">текст раздела</param>
         public static void WriteNewInfoIntoTopicPortion(TopicPortionModel topicPortion, string name, string text)
         {
             topicPortion.TopicPortionName = name;
@@ -54,6 +96,13 @@ namespace Study.Logic
                 PortionList.Add(topicPortionForChange);
             }
         }
+
+        /// <summary>
+        /// Метод изменяющий или создающий вопрос темы
+        /// </summary>
+        /// <param name="text">текст вопроса</param>
+        /// <param name="correctAnswer">Правильный ответ</param>
+        /// <param name="timeToAnswer">Время на ответ</param>
         public static void WriteNewInfoIntoQuestion(string text, string correctAnswer, int timeToAnswer)
         {
             questionForChange.QuestionText = text;
@@ -73,6 +122,11 @@ namespace Study.Logic
 
         }
 
+        /// <summary>
+        /// Метод загружающий информацию о теме для отображения
+        /// </summary>
+        /// <param name="isTopicNew">переменная показываеющая создаем ли мы новую тему или изменяем старую</param>
+        /// <param name="model">тема</param>
         public static void LoadTopic(bool isTopicNew, TopicModel model)
         {
             CurrentTopic = model;
@@ -83,17 +137,31 @@ namespace Study.Logic
                 QuestionList = new ObservableCollection<QuestionModel>(GlobalConfig.connection.GetQuestions_byTopic(CurrentTopic.id));
             }
         }
+
+        /// <summary>
+        /// Метод загружающий информацию о разделе темы для отображения
+        /// </summary>
+        /// <param name="isPortionNew">переменная показываеющая создаем ли мы новый раздел или изменяем старый</param>
+        /// <param name="model">раздел</param>
         public static void LoadTopicPortion(bool isPortionNew, TopicPortionModel model)
         {
             newPortion = isPortionNew;
             topicPortionForChange = model;
         }
+        /// <summary>
+        /// Метод загружающий информацию о вопросе темы для отображения
+        /// </summary>
+        /// <param name="isQuestionNew">переменная показываеющая создаем ли мы новый вопрос или изменяем старый</param>
+        /// <param name="model">вопрос</param>
         public static void LoadTopicQuestion(bool isQuestionNew, QuestionModel model)
         {
             newQuestion = isQuestionNew;
             questionForChange = model;
         }
 
+        /// <summary>
+        /// Метод создающий новый курс для отображения
+        /// </summary>
         public static void CreateNewCourse()
         {
             CourseModel course = new CourseModel(UsersDataControl.currentTeacher.id);
@@ -104,42 +172,51 @@ namespace Study.Logic
             List<GroupModel> groups = GlobalConfig.connection.GetGroups_All();
             foreach(GroupModel group in groups)
             {
-                GroupToCourseRealationModel model = new GroupToCourseRealationModel(UsersDataControl.CurrentCourse.id, group.id);
+                GroupToCourseRealationModel model = new GroupToCourseRealationModel(UsersDataControl.currentCourse.id, group.id);
                 GlobalConfig.connection.CreateGroupToCourseRealation(model);
             }
 
-            //на всякий случай очищаем список 
-            UsersDataControl.CurrentCourse.topics = new List<TopicModel>();
-
         }
 
+        /// <summary>
+        /// Метод загружающий информацию о курсе для отображения
+        /// </summary>
         public static void EditCourse(CourseModel course)
         {
             UsersDataControl.setCurrentCourse(course);
             isCourseNew = false;
 
             //получаем список тем
-            List<TopicModel> tml = GlobalConfig.connection.GetTopicModels_byCourseID(UsersDataControl.CurrentCourse.id);
+            List<TopicModel> tml = GlobalConfig.connection.GetTopicModels_byCourseID(UsersDataControl.currentCourse.id);
 
             //сортируем список тем по порядку
-            UsersDataControl.CurrentCourse.topics = tml.OrderBy(x => x.TopicOrderNumber).ToList();
+            UsersDataControl.currentCourse.topics = tml.OrderBy(x => x.TopicOrderNumber).ToList();
         }
-        public static void FinishCourse(string newCourseName)
+
+        /// <summary>
+        /// По факту - метод присваивающий новое имя курсу
+        /// </summary>
+        /// <param name="newNameOfCourse">Без комментариев.</param>
+        public static void FinishCourse(string newNameOfCourse)
         {
             //Обновляем имя курса
-            UsersDataControl.CurrentCourse.Name = newCourseName;
+            UsersDataControl.currentCourse.Name = newNameOfCourse;
             //Обновляем имя курса в базе данных
-            GlobalConfig.connection.updateCourseName(UsersDataControl.CurrentCourse);
+            GlobalConfig.connection.updateCourseName(UsersDataControl.currentCourse);
 
             if (isCourseNew) //Если это новый курс, то
             {
                 //добавляем его в список курсов учителя
-                UsersDataControl.currentTeacher.courses.Add(UsersDataControl.CurrentCourse);
+                UsersDataControl.currentTeacher.courses.Add(UsersDataControl.currentCourse);
             }
 
-            UsersDataControl.CurrentCourse = null;
+            UsersDataControl.currentCourse = null;
         }
 
+        /// <summary>
+        /// Метод сохраняющий курс (По факту - метод присваивающий новое имя теме, который отдает все реальные действия другим методам, чтобы код выглядел покрасивее)
+        /// </summary>
+        /// <param name="TopicName"></param>
         public static void SaveTopic(string TopicName)
         {
             //сохраняем всю информацию по теме в отдельный класс
@@ -156,13 +233,16 @@ namespace Study.Logic
                 ChangeTopic(topic);
             }
 
-            UsersDataControl.CurrentCourse.topics = GlobalConfig.connection.GetTopicModels_byCourseID(UsersDataControl.CurrentCourse.id);
+            UsersDataControl.currentCourse.topics = GlobalConfig.connection.GetTopicModels_byCourseID(UsersDataControl.currentCourse.id);
         }
 
-        //добавляем новую тему в базу данных
+        /// <summary>
+        /// Метод добавляющий новую тему в базу данных
+        /// </summary>
+        /// <param name="topic">Новая тема</param>
         public static void AddNewTopic(TopicModel topic)
         {
-            topic.Courseid = UsersDataControl.CurrentCourse.id;
+            topic.Courseid = UsersDataControl.currentCourse.id;
             //ставим его по порядку на номер (всего тем + 1)
             int NumberofTopics = GlobalConfig.connection.GetNumberofTopicsByCouriseid(topic.Courseid);
             topic.TopicOrderNumber = NumberofTopics + 1;
@@ -186,7 +266,10 @@ namespace Study.Logic
             }
         }
 
-        //меняем данные темы в базе данных и удаляем из нее лишние разделы и вопросы
+        /// <summary>
+        /// Метод сохраняющий изменения в теме (и удаляющий из нее лишние разделы и вопросы)
+        /// </summary>
+        /// <param name="topic">изменяемая тема</param>
         public static void ChangeTopic(TopicModel topic)
         {
             //проверяем есть ли вопросы для удаления и, при наличии, стираем их из базы
@@ -250,7 +333,10 @@ namespace Study.Logic
             }
         }
 
-        //Заносим в систему данные о том, что этот вопрос надо удалить (но не вносим изменения в базу данных, пока пользователь не нажмет кнопку "сохранить изменения")
+        /// <summary>
+        /// Метод, заносящий в систему данные о том, какой вопрос надо удалить (но изменения в базу данных не вносятся, пока пользователь не нажмет кнопку "сохранить изменения")
+        /// </summary>
+        /// <param name="question">Удаляемый вопрос</param>
         public static void DeleteQuestionWithoutSavingChanges(QuestionModel question)
         {
             if (newTopic)
@@ -268,10 +354,12 @@ namespace Study.Logic
             }
         }
 
-        //Заносим в систему данные о том, что этот раздел надо удалить (но не вносим изменения в базу данных, пока пользователь не нажмет кнопку "сохранить изменения")
+        /// <summary>
+        /// Метод, заносящий в систему данные о том, какой раздел надо удалить (но изменения в базу данных не вносятся, пока пользователь не нажмет кнопку "сохранить изменения")
+        /// </summary>
+        /// <param name="question">Удаляемый раздел</param>
         public static void DeleteTopicPortionWithoutSavingChanges(TopicPortionModel topicPortion)
         {
-
             if (newTopic)
             {
                 //убираем раздел из списка
@@ -287,8 +375,10 @@ namespace Study.Logic
             }
         }
 
-
-
+        /// <summary>
+        /// Метод, удаляющий тему. Реликт со времен, когда я не знал про триггеры в SQl
+        /// </summary>
+        /// <param name="topic">Удаляемая тема</param>
         public static void DeleteTopic(TopicModel topic)
         {
             GlobalConfig.connection.deleteGradeWithTopic(topic.id);
@@ -297,27 +387,19 @@ namespace Study.Logic
             GlobalConfig.connection.deleteTopic(topic.id);
 
             //обновляем порядок
-            UsersDataControl.CurrentCourse.topics.Remove(topic);
-            foreach (TopicModel tm in UsersDataControl.CurrentCourse.topics)
+            UsersDataControl.currentCourse.topics.Remove(topic);
+            foreach (TopicModel tm in UsersDataControl.currentCourse.topics)
             {
-                tm.TopicOrderNumber = UsersDataControl.CurrentCourse.topics.IndexOf(tm) + 1;
+                tm.TopicOrderNumber = UsersDataControl.currentCourse.topics.IndexOf(tm) + 1;
                 GlobalConfig.connection.UpdateTopicOrder(tm);
             }
-            UsersDataControl.CurrentCourse.topics.OrderBy(x => x.TopicOrderNumber);
+            UsersDataControl.currentCourse.topics.OrderBy(x => x.TopicOrderNumber);
         }
 
-        public static void ChangeTopicOrder(int order, TopicModel selected)
-        {
-            UsersDataControl.CurrentCourse.topics.Remove(selected);
-            UsersDataControl.CurrentCourse.topics.Insert(order - 1, selected);
-            foreach (TopicModel topic in UsersDataControl.CurrentCourse.topics)
-            {
-                topic.TopicOrderNumber = UsersDataControl.CurrentCourse.topics.IndexOf(topic) + 1;
-                GlobalConfig.connection.UpdateTopicOrder(topic);
-            }
-            UsersDataControl.CurrentCourse.topics.OrderBy(x => x.TopicOrderNumber);
-        }
-
+        /// <summary>
+        /// Метод, удаляющий курс. Реликт со времен, когда я не знал про триггеры в SQl
+        /// </summary>
+        /// <param name="course">Удаляемый вопрос</param>
         public static void deleteCourse(CourseModel course)
         {
             course.topics = GlobalConfig.connection.GetTopicModels_byCourseID(course.id);
@@ -336,9 +418,37 @@ namespace Study.Logic
             GlobalConfig.connection.deleteCourseToStudentRelationWithCourse(course.id);
             GlobalConfig.connection.deleteCourse(course.id);
             UsersDataControl.currentTeacher.courses.Remove(course);
-
         }
 
+        /// <summary>
+        /// Метод изменяющий порядок выбранной темы
+        /// </summary>
+        /// <param name="order">Новый номер порядка</param>
+        /// <param name="selected">Выбранная тема</param>
+        public static void ChangeTopicOrder(int order, TopicModel selected)
+        {
+            //Проверяем - вдруг тема итак имеет нужный порядок
+            if (UsersDataControl.currentCourse.topics.IndexOf(selected) != (order - 1))
+            {
+                //если нет, то убираем ее из списка и вставляем под нужным порядком
+                UsersDataControl.currentCourse.topics.Remove(selected);
+                UsersDataControl.currentCourse.topics.Insert(order - 1, selected);
+
+                //после этого обновляем порядок тем курса
+                foreach (TopicModel topic in UsersDataControl.currentCourse.topics)
+                {
+                    topic.TopicOrderNumber = UsersDataControl.currentCourse.topics.IndexOf(topic) + 1;
+                    GlobalConfig.connection.UpdateTopicOrder(topic);
+                }
+                //и на всякий случай сортируем темы по порядку
+                UsersDataControl.currentCourse.topics.OrderBy(x => x.TopicOrderNumber);
+            }
+        }
+
+        /// <summary>
+        /// Метод вносящий введенный учителем неправльный ответ в отображаемый список
+        /// </summary>
+        /// <param name="text">текст ответа</param>
         public static void addWrongAnswer(string text)
         {
             WrongAnswer = new WrongAnswerModel(text);
@@ -346,6 +456,9 @@ namespace Study.Logic
             WrongAnswerText.Add(text);
         }
 
+        /// <summary>
+        /// Метод отображающий неправильные ответы изменяемого вопроса
+        /// </summary>
         public static void getWrongAnswers()
         {
             questionForChange.wrongAnswers = GlobalConfig.connection.GetWrongAnswerModels_byQuestionid(questionForChange.id);

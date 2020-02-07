@@ -7,7 +7,10 @@
         xmlns:local="clr-namespace:Study.Views"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Обучающая программа" Height="550" Width="550" FontSize="48"
-        Background="AliceBlue" FontFamily="Sitka Heading">
+        Background="AliceBlue" FontFamily="Sitka Heading" >
+    <Window.Icon>
+        <BitmapImage UriSource="..\Images\book.png"/>
+    </Window.Icon>
     <Window.CommandBindings>
         <CommandBinding 
             Command="local:StartWindowShell.LoadChoiceScreen"

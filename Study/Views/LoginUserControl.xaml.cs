@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Study.Logic;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,7 +19,7 @@ namespace Study.Views
         private void StartLearning_Click(object sender, RoutedEventArgs e)
         {
             //проверка данных, которые ввел студент
-            int result = Logic.UsersDataControl.Login(UserName.Text, Password.Password);
+            int result = UsersDataControl.Login(UserName.Text, Password.Password);
 
             switch (result)
             {
@@ -27,7 +28,6 @@ namespace Study.Views
                     CommandBinding TeacherRegistration = new CommandBinding(StartWindowShell.LoadTeacherRegistrationScreen);
                     TeacherRegistration.Command.Execute("placeholder object");
                     break;
-
 
                 //в случае, если пользователь ввел верный логин и пароль (студента), открывается экран курсов студента
                 case 1:
@@ -43,7 +43,7 @@ namespace Study.Views
 
                 //в случае, если пользователь ввел неверный логин, всплывает соответствующее сообщение
                 case 3:
-                    MessageBox.Show("Никнейм отсутствует в базе данных", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Логин отсутствует в базе данных", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
 
                 //в случае, если пользователь ввел неверный пароль, всплывает соответствующее сообщение

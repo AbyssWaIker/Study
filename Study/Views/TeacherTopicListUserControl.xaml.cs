@@ -26,10 +26,10 @@ namespace Study.Views
         {
             InitializeComponent();
 
-            CourseNameText.Text = UsersDataControl.CurrentCourse.Name;
+            CourseNameText.Text = UsersDataControl.currentCourse.Name;
 
             //выводим список тем
-            AllTopics.ItemsSource = UsersDataControl.CurrentCourse.topics;
+            AllTopics.ItemsSource = UsersDataControl.currentCourse.topics;
         }
 
         private void ChangeOrderButton_Click(object sender, RoutedEventArgs e)
@@ -43,13 +43,13 @@ namespace Study.Views
                 if (isNumber)
                 {
                     //проверям не ввел ли пользователь (например) номер темы - 5 миллиардов (когда тем всего 4)
-                    if (order <= UsersDataControl.CurrentCourse.topics.Count)
+                    if (order <= UsersDataControl.currentCourse.topics.Count)
                     {
                         LearningMaterialInsert.ChangeTopicOrder(order, selected);
 
                         //обновляем отображение
                         AllTopics.ItemsSource = null;
-                        AllTopics.ItemsSource = UsersDataControl.CurrentCourse.topics;
+                        AllTopics.ItemsSource = UsersDataControl.currentCourse.topics;
 
                     }
                     else //если пользователь ввел неверный номер, выводим соответствующую ошибку и сбрасываем содержимое строки
@@ -133,7 +133,7 @@ namespace Study.Views
 
         private void CourseNameText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UsersDataControl.CurrentCourse.Name = CourseNameText.Text;
+            UsersDataControl.currentCourse.Name = CourseNameText.Text;
         }
     }
 }

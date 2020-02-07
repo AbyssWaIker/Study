@@ -6,27 +6,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Класс хранящий отображаемую информацию, по курсу, который просматривает студент
+/// </summary>
+
 namespace Study.Logic
 {
     public static class DisplayedLearningMaterial
     {
 
-        //список непройденных тем текущего курса
+        /// <summary>
+        /// список непройденных тем текущего курса
+        /// </summary>
         public static ObservableCollection<TopicModel> UnfinishedTopics { get; set; } = new ObservableCollection<TopicModel>();
 
-        //список пройденных тем текущего курса
+        /// <summary>
+        /// список пройденных тем текущего курса
+        /// </summary>
         public static ObservableCollection<TopicModel> FinishedTopics { get; set; } = new ObservableCollection<TopicModel>();
 
-        //флажок, пройдены ли все темы
+        /// <summary>
+        /// флажок, пройдены ли все темы
+        /// </summary>
         public static bool allTopicsFinished { get; set; } = false;
 
-        //информация, о текущей теме, которую проходит студент
+        /// <summary>
+        /// информация, о текущей теме, которую проходит студент
+        /// </summary>
         public static TopicModel CurrentTopic { get; set; }
 
-        //номер текущего раздела, темы, которую проходит студент
+        /// <summary>
+        /// номер текущего раздела, темы, которую проходит студент
+        /// </summary>
         public static int CurrentTopicPortionNumber { get; set; }
 
-        //получение списка тем доступных студенту
+        /// <summary>
+        /// получение списка тем доступных студенту
+        /// </summary>
+        /// <returns></returns>
         public static List<CourseModel> coursesAvailableTostudent()
         {
             List<CourseModel> courses = new List<CourseModel>();
@@ -58,7 +75,11 @@ namespace Study.Logic
             }
         }
 
-        //функция, которая выполняется, когда студент открывает курс
+
+        /// <summary>
+        /// функция, которая выполняется, когда студент открывает курс
+        /// </summary>
+        /// <param name="course">Модель курса, которая задается текущей и по которой получается информация</param>
         public static void courseStarted(CourseModel course)
         {
             //установка курса текущим
@@ -76,7 +97,9 @@ namespace Study.Logic
             }
         }
 
-
+        /// <summary>
+        /// Первый перенос тем из списка непройденных тем, в список пройденных тем
+        /// </summary>
         public static void FirstTopicsSwap()
         {
             List<TopicModel> FullTopicList = UnfinishedTopics.ToList();
@@ -103,7 +126,10 @@ namespace Study.Logic
         }
 
 
-        //перемещаем пройденную тему в нужный список список
+        /// <summary>
+        /// перенос пройденной темы из списка непройденных тем, в список пройденных тем
+        /// </summary>
+        /// <param name="topic">Тема, которую мы переносим</param>
         public static void swapTopic(TopicModel topic)
         {
             //убираем ее из списка непройденных тем
@@ -118,7 +144,10 @@ namespace Study.Logic
             }
         }
 
-        //получение информации по теме
+        /// <summary>
+        /// получение информации по теме
+        /// </summary>
+        /// <param name="topic">тема, которая устанавливается текущей и по которой получается информация</param>
         public static void GetTopicInfo(TopicModel topic)
         {
             topic.Questions = GlobalConfig.connection.GetQuestions_byTopic(topic.id);
@@ -126,10 +155,16 @@ namespace Study.Logic
             CurrentTopic = topic;
         }
 
+        /// <summary>
+        /// Обновление отображаемого раздела темы. 
+        /// Элемент CurrentTopicPortionNumber - это индекс раздела, в списке. 
+        /// Создается со значением 0 и при каждом вызове метода, возвращает раздел с таким индексом и увеличивает CurrentTopicPortionNumber на 1
+        /// </summary>
+        /// <returns></returns>
         public static TopicPortionModel GetCurrentTopicPortion()
         {
             TopicPortionModel currentTopicPortion = CurrentTopic.TopicPortions.ElementAt(CurrentTopicPortionNumber);
-            CurrentTopicPortionNumber = CurrentTopicPortionNumber + 1;
+            CurrentTopicPortionNumber++;
             return currentTopicPortion;
         }
     }

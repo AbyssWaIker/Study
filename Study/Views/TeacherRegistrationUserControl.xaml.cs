@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Study.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,20 +28,28 @@ namespace Study.Views
 
         private void AddTeacher_Click(object sender, RoutedEventArgs e)
         {
-            int result = Logic.UsersDataControl.CreateTeacher(tName.Text, Position.Text, UserName.Text, Password.Password, ConfirmPassword.Password);
+            int result = UsersDataControl.CreateTeacher(tName.Text, Position.Text, UserName.Text, Password.Password, ConfirmPassword.Password);
 
             switch (result)
             {
+                //если все введенные данные верны и регистрация прошла успешно, открывается экран входа 
+                //(или стартовый экран преподавателя, если раскоменьтить присваивание только что зарегистрированного преподавателя переменной currentTeacher в методе UsersDataControl.CreateTeacher)
                 case 0:
                     CommandBinding returnToLogin = new CommandBinding(StartWindowShell.ReturnFromTeacherRegistrationScreen);
                     returnToLogin.Command.Execute(1);
                     break;
+
+                //если логин занят, всплывает соответствующее сообщение
                 case 1:
-                    MessageBox.Show("Никнейм уже занят");
+                    MessageBox.Show("Логин уже занят");
                     break;
+
+                //если пароли не совпадают, всплывает соответствующее сообщение
                 case 2:
                     MessageBox.Show("Пароли не совпадают", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
+
+                //если пользователь не ввел свои данные , всплывает соответствующее сообщение
                 case 3:
                     MessageBox.Show("Введите свои данные", "ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;

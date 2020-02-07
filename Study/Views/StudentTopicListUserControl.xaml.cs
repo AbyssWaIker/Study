@@ -33,8 +33,8 @@ namespace Study.Views
             {
                 UnfinishedTopicLabel.Text = "Все темы пройденны";
 
-                ViewResult.IsEnabled = true;
-                StartTopic.IsEnabled = false;
+                ViewResultButton.IsEnabled = true;
+                StartTopicButton.IsEnabled = false;
             }
         }
 

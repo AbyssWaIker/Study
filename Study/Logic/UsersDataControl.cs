@@ -10,12 +10,41 @@ namespace Study.Logic
 {
     public static class UsersDataControl
     {
+        /// <summary>
+        /// Модель хранящая информация вошедшего в систему студента
+        /// </summary>
         public static StudentModel currentStudent { get; set; }
+
+        /// <summary>
+        /// Модель хранящая информация вошедшего в систему преподавателя
+        /// </summary>
         public static TeacherModel currentTeacher { get; set; }
 
-        public static CourseModel CurrentCourse { get; set; }
+        /// <summary>
+        /// Модель хранящая информацию, про просматриваемый/изменяемый курс
+        /// </summary>
+        public static CourseModel currentCourse { get; set; }
+
+        /// <summary>
+        /// Список хранящий информацию, о том, какой группе, доступен, какой курс 
+        /// </summary>
         public static List<GroupToCourseRealationModel> AccessList { get; set; } = new List<GroupToCourseRealationModel>();
 
+
+        /// <summary>
+        /// Метод принимающий информацию про студента, проверяющий эту информацию и производящий регистрирацию (или возвращающий номер ошибки для отображения)
+        /// </summary>
+        /// <param name="name"> Имя студента</param>
+        /// <param name="group">Группа Студента</param>
+        /// <param name="username">Логин Студента</param>
+        /// <param name="password">Введеный пароль</param>
+        /// <param name="confirmpassword">ВВеденной подтверждение пароля</param>
+        /// <returns>После проверки информации, метод 
+        /// или выполняет регистрацию и возвращает сигнал перехода на следующий экран (0) 
+        /// или возвращает на информацию, на какой этап проверки информация не прошла
+        /// При возврате 1 интерфейс выводит сообщение, что логин занят
+        /// При возврате 2 интерфейс выводит сообщение, что пароли не совпадают
+        /// При возврате 3 интерфейс выводит сообщение, что пользователь не ввел какие-то данные</returns>
         public static int CreateStudent(string name, GroupModel group, string username, string password, string confirmpassword)
         {
             //проверяем ввел ли пользователь нужные данные (если ни одна из строк не пустая - продолжаем)
@@ -27,7 +56,7 @@ namespace Study.Logic
                 if (password == confirmpassword)
                 {
                     //проверяем свободен ли логин
-                    bool free = GlobalConfig.connection.CheckifUsernameIsFree(username);
+                    bool free = GlobalConfig.connection.CheckifTeacherUsernameIsFree(username) && GlobalConfig.connection.CheckifUsernameIsFree(username);
                     if (free)
                     {
                         //если все введенные данные верные, регистрируем студента
@@ -55,6 +84,21 @@ namespace Study.Logic
             }
         }
 
+
+        /// <summary>
+        /// Метод принимающий информацию про преподавателя, проверяющий эту информацию и производящий регистрирацию (или возвращающий номер ошибки для отображения)
+        /// </summary>
+        /// <param name="name">имя преподавателя</param>
+        /// <param name="position">Должность преподавателя</param>
+        /// <param name="username">Логин преподавателя</param>
+        /// <param name="password">Введеный пароль преподавателя</param>
+        /// <param name="confirmpassword">Введенное подтверждение пароля</param>
+        /// <returns>После проверки информации, метод 
+        /// или выполняет регистрацию и возвращает сигнал перехода на следующий экран (0) 
+        /// или возвращает на информацию, на какой этап проверки информация не прошла
+        /// При возврате 1 интерфейс выводит сообщение, что логин занят
+        /// При возврате 2 интерфейс выводит сообщение, что пароли не совпадают
+        /// При возврате 3 интерфейс выводит сообщение, что пользователь не ввел какие-то данные</returns>
         public static int CreateTeacher(string name, string position, string username, string password, string confirmpassword)
         {
             //проверяем ввел ли пользователь нужные данные (если ни одна из строк не пустая - продолжаем)
@@ -66,14 +110,16 @@ namespace Study.Logic
                 if (password == confirmpassword)
                 {
                     //проверяем свободен ли логин
-                    bool free = GlobalConfig.connection.CheckifTeacherUsernameIsFree(username);
+                    bool free = GlobalConfig.connection.CheckifTeacherUsernameIsFree(username)&& GlobalConfig.connection.CheckifUsernameIsFree(username);
                     if (free)
                     {
                         //если все введенные данные верные, регистрируем преподавателя
                         TeacherModel tm = new TeacherModel(name, position, username, password);
                         GlobalConfig.connection.createTeacher(tm);
-                        //и сообщаем системе, что он вошел
-                        currentTeacher = tm;
+
+                        //Разкоменьтите следующие строки, если хотите, чтобы система автоматически логинилась в аккаунт только что зарегистрированного преподавателя
+                        ////и сообщаем системе, что он вошел. 
+                        //currentTeacher = tm;
                         return 0;
                     }
                     else
@@ -96,6 +142,19 @@ namespace Study.Logic
             }
         }
 
+        /// <summary>
+        /// Метод принимающий логин и пароль пользователя и производящий вход или возвращающий
+        /// </summary>
+        /// <param name="username">Введенный логин</param>
+        /// <param name="enteredPassword">Введенный пароль</param>
+        /// <returns><returns>После проверки информации, метод 
+        /// или выполняет "план Б", на случай пустоты базы данных и возвращает 0, говоря интерфейсу вызвать экран регистрации преподавателя
+        /// или определяет, что логин и пароль студента правильные и возвращает 1, говоря говоря интерфейсу вызвать стартовый экран студента 
+        /// или определяет, что логин и пароль учителя правильные и возвращает 2, говоря говоря интерфейсу вызвать стартовый экран учителя 
+        /// или возвращает на информацию, на какой этап проверки информация не прошла
+        /// При возврате 3 интерфейс выводит сообщение, что пользователь ввел неверный логин
+        /// При возврате 4 интерфейс выводит сообщение, что пользователь ввел неверный пароль
+        /// При возврате 5 интерфейс выводит сообщение, что пользователь не ввел какие-то данные</returns>
         public static int Login(string username, string enteredPassword)
         {
             //проверяем ввел ли пользователь нужные данные (если ни одна из строк не пустая - продолжаем)
@@ -174,15 +233,26 @@ namespace Study.Logic
             }
         }
 
+        /// <summary>
+        /// Абсолютно лишний метод, проверки свободно ли имя группы, через загрузку всех групп и поиск группы с совпадающем именем. 
+        /// Его я создал в последний момент, когда мне было уже слишком лень писать отдельную хранимую процедуру на SQL и querry для SQLite, для нормальной проверки)
+        /// Если программу кто-то будет поддерживать после меня - замените этот костыль, на что-то поприличнее
+        /// </summary>
+        /// <param name="groupName">Имя группы, которое мы проверяем на занятость</param>
+        /// <returns></returns>
         public static bool GroupNameIsFree(string groupName)
         { 
-            /*загружаем (опять) список всех групп (абсолютно лишний расход ресурсов памяти, но эту функцию я добавил в последний момент, 
-              когда мне было уже слишком лень писать отдельную хранимую процедуру на SQL и querry для SQLite, для нормальной проверки)*/
+            //загружаем (опять) список всех групп (абсолютно лишний расход ресурсов памяти
             List<GroupModel> groups = GlobalConfig.connection.GetGroups_All();
             //проверяем свободно ли имя
             bool free = !groups.Exists(x => x.GroupName == groupName);
             return free;
         }
+
+        /// <summary>
+        /// Метод создающий группу и добавляющий связь со всеми курсами (по умолчанию - запрещающую доступ)
+        /// </summary>
+        /// <param name="groupName"> Имя создаваемой группы</param>
         public static void CreateGroup(string groupName)
         {
             //создаем новую группу с полученным именем
@@ -191,14 +261,18 @@ namespace Study.Logic
 
             //получаем список всех существующих курсов
             List<CourseModel> courses = GlobalConfig.connection.GetCourseModelsAll();
-            //создаем связь с каждым из них
-            foreach(CourseModel course in courses)
+            //создаем связь (по умолчанию - запрещающую доступ) с каждым из них
+            foreach (CourseModel course in courses)
             {
                 GroupToCourseRealationModel gtc = new GroupToCourseRealationModel(course.id, group.id);
                 GlobalConfig.connection.CreateGroupToCourseRealation(gtc);
             }
         }
 
+        /// <summary>
+        /// Метод разрешающий/запрещающий группе просматривать курс
+        /// </summary>
+        /// <param name="relation">Связь между нужными группой и курсом</param>
         public static void changeGroupAccess(GroupToCourseRealationModel relation)
         {
             //проверяем имеет ли доступ группа
@@ -209,7 +283,7 @@ namespace Study.Logic
                 GlobalConfig.connection.updateGroupToCourseRelation(relation);
 
                 //обновляем отображаемый список
-                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(CurrentCourse.id);
+                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(currentCourse.id);
 
             }
             else
@@ -219,10 +293,14 @@ namespace Study.Logic
                 GlobalConfig.connection.updateGroupToCourseRelation(relation);
 
                 //обновляем отображаемый список
-                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(CurrentCourse.id);
+                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(currentCourse.id);
             }
         }
 
+        /// <summary>
+        /// Метод возвращающий список студентов имеющий доступ к курсу, для просмотра их оценок
+        /// </summary>
+        /// <returns></returns>
         public static List<StudentModel> getStudentsWhoHaveAccessToCourse()
         {
             //проверяем доступны ли все курсы всем студентам
@@ -234,7 +312,7 @@ namespace Study.Logic
                 //загружаем оценки каждого
                 foreach (StudentModel student in StudentList)
                 {
-                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, CurrentCourse.id);
+                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, currentCourse.id);
                 }
 
                 return StudentList;
@@ -242,29 +320,39 @@ namespace Study.Logic
             else
             {
                 //если доступ только по разрешению, получаем список студентов, у которых есть доступ к курсу
-                List<StudentModel> StudentList = GlobalConfig.connection.GetStudentsByCourseid(CurrentCourse.id);
+                List<StudentModel> StudentList = GlobalConfig.connection.GetStudentsByCourseid(currentCourse.id);
 
                 //загружаем оценки каждого
                 foreach (StudentModel student in StudentList)
                 {
-                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, CurrentCourse.id);
+                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, currentCourse.id);
                 }
                 return StudentList;
             }
         }
-
+        /// <summary>
+        /// Метод Задающий просматриваемый/изменяемый курс
+        /// </summary>
+        /// <param name="course"> Выбранный курс, который устанавливает текущим</param>
         public static void setCurrentCourse(CourseModel course)
         {
             //устанавливаем курс как текущий
-            CurrentCourse = course;
+            currentCourse = course;
         }
+
+        /// <summary>
+        /// Метод возвращающий список какой курс доступен какой группе
+        /// </summary>
+        /// <returns></returns>
         public static List<GroupToCourseRealationModel> LoadAccessPage()
         {
             //получаем список кому разрешен (а кому нет) доступ к курсу
-            return GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(CurrentCourse.id);
+            return GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(currentCourse.id);
         }
-
-        //записываем результаты текущего студента
+        /// <summary>
+        /// Метод записывающий результаты текущего студента
+        /// </summary>
+        /// <returns>Возвращает текст, посвященный текущему студенту, который печатается программой или обьединяется с другими текстами перед печатью</returns>
         public static List<string> printResultDocumentForStudent()
         {
             //создаем оформление
@@ -282,7 +370,10 @@ namespace Study.Logic
             return text;
         }
 
-        //записываем результаты всех студентов
+        /// <summary>
+        /// Метод записывающий результаты всех студентов
+        /// </summary>
+        /// <returns>Возвращает финальный текст, посвященный всем студентам, который печатается программой</returns>
         public static List<String> printResultDocumentForTeacher()
         {
 

@@ -49,7 +49,7 @@ namespace Study
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
                 var q = new DynamicParameters();
-                q.Add("@studentid", model.getStudentID());
+                q.Add("@studentid", model.studentid);
                 q.Add("@Topicid", model.Topicid);
                 q.Add("@QuestionAnsweredCorrectly", model.QuestionAnsweredCorrectly);
                 q.Add("@QuestionAnswered", model.QuestionAnswered);

@@ -52,7 +52,10 @@ namespace Study
                 {
                     return true;
                 }
-                else return false;
+                else
+                {
+                    return false;
+                }
             }
         }
         public String getGradeInfoForStudent()
@@ -72,14 +75,6 @@ namespace Study
         public void setID(int i)
         {
             id = i;
-        }
-        public int getStudentID()
-        {
-            return studentid;
-        }
-        public void setStudentID(int si)
-        {
-            studentid = si;
         }
 
     }
