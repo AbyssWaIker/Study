@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Study.Views"
-             mc:Ignorable="d" Height="500" Width="500" FontSize="24"
-        Background="AliceBlue" FontFamily="Sitka Heading">
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
+             FontSize="24" Background="AliceBlue" FontFamily="Sitka Heading">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "10" />
@@ -30,10 +30,10 @@
         <TextBlock x:Name="TopicportionNameLabel"  Grid.Row="2"  Grid.Column="1"
                            Text="Название:"/>
         <TextBox x:Name="TopicPortionNameValue" MinWidth="270" Grid.Row="2"  Grid.Column="2"
-                         MaxWidth="270" TextWrapping="Wrap" MaxLength="50"/>
+                 TextWrapping="Wrap" MaxLength="50"/>
 
         <TextBlock x:Name="TopicportionTextLabel" Text="Текст раздела:"
-                   Grid.Row="3" Grid.Column="1"/>
+                   Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBox x:Name="TopicPortionTextValue" MinHeight="150"
                  TextWrapping="Wrap" AcceptsReturn="True" FontSize="18"
                  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>

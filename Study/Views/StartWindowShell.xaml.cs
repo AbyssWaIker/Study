@@ -11,57 +11,94 @@ namespace Study.Views
     /// </summary>
     public partial class StartWindowShell : Window
     {
-        //определение комманды, загружающей экран стартового выбора (регистрация/вход)
+        /// <summary>
+        /// определение комманды, загружающей экран стартового выбора (регистрация/вход)
+        /// </summary>
         public static RoutedCommand LoadChoiceScreen = new RoutedCommand("LoadChoiceScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран входа
+        /// <summary>
+        /// определение комманды, загружающей экран входа
+        /// </summary>
         public static RoutedCommand LoadLoginScreen = new RoutedCommand("LoadLoginScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран регистрации
+        /// <summary>
+        /// определение комманды, загружающей экран регистрации
+        /// </summary>
         public static RoutedCommand LoadRegistrationScreen = new RoutedCommand("LoadRegistrationScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран регистрации учителя
+        /// <summary>
+        /// определение комманды, загружающей экран регистрации учителя
+        /// </summary>
         public static RoutedCommand LoadTeacherRegistrationScreen = new RoutedCommand("LoadTeacherRegistrationScreen", typeof(StartWindowShell));
 
-        //определение комманды, срабатывающей, при нажатии "назад" на экране регистрации учителя
+        /// <summary>
+        /// определение комманды, срабатывающей, при нажатии "назад" на экране регистрации учителя
+        /// </summary>
         public static RoutedCommand ReturnFromTeacherRegistrationScreen = new RoutedCommand("ReturnFromTeacherRegistrationScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран списка предметов учителя
+        /// <summary>
+        /// определение комманды, загружающей экран списка предметов учителя
+        /// </summary>
         public static RoutedCommand LoadTeacherCourseScreen = new RoutedCommand("LoadTeacherCourseScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран списка тем учителя
+        /// <summary>
+        /// определение комманды, загружающей экран списка тем учителя
+        /// </summary>
         public static RoutedCommand LoadTeacherTopicListScreen = new RoutedCommand("LoadTeacherTopicListScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран учителя, создания/изменения темы
+        /// <summary>
+        /// определение комманды, загружающей экран учителя, создания/изменения темы
+        /// </summary>
         public static RoutedCommand LoadTeacherAddTopicScreen = new RoutedCommand("LoadTeacherAddTopicScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран учителя, создания/изменения раздела темы 
+        /// <summary>
+        /// определение комманды, загружающей экран учителя, создания/изменения раздела темы 
+        /// </summary>
         public static RoutedCommand LoadTeacherAddTopicPortionScreen = new RoutedCommand("LoadTeacherAddTopicPortionScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран учителя, создания/изменения вопроса темы 
+        /// <summary>
+        /// определение комманды, загружающей экран учителя, создания/изменения вопроса темы 
+        /// </summary>
         public static RoutedCommand LoadTeacherAddTopicQuestionScreen = new RoutedCommand("LoadTeacherAddTopicQuestionScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран учителя, предоставления доступа студентам к курсам
+        /// <summary>
+        /// определение комманды, загружающей экран учителя, предоставления доступа студентам к курсам
+        /// </summary>
         public static RoutedCommand LoadTeacherGiveAccessScreen = new RoutedCommand("LoadTeacherGiveAccessScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран курсов студента
+        /// <summary>
+        /// определение комманды, загружающей экран курсов студента
+        /// </summary>
         public static RoutedCommand LoadStudentCourseListScreen = new RoutedCommand("LoadStudentCourseListScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран тем студента
+        /// <summary>
+        /// определение комманды, загружающей экран тем студента
+        /// </summary>
         public static RoutedCommand LoadStudentTopicListScreen = new RoutedCommand("LoadStudentTopicListScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран раздела выбранной темы студента
+        /// <summary>
+        /// определение комманды, загружающей экран раздела выбранной темы студента
+        /// </summary>
         public static RoutedCommand LoadStudentTopicPortionScreen = new RoutedCommand("LoadStudentTopicPortionScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран вопросов выбранной темы студента
+        /// <summary>
+        /// определение комманды, загружающей экран вопросов выбранной темы студента
+        /// </summary>
         public static RoutedCommand LoadStudentTopicQuestionScreen = new RoutedCommand("LoadStudentTopicQuestionScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран результатов студента
+        /// <summary>
+        /// определение комманды, загружающей экран результатов студента
+        /// </summary>
         public static RoutedCommand LoadStudentResultScreen = new RoutedCommand("LoadStudentResultScreen", typeof(StartWindowShell));
 
-        //определение комманды, загружающей экран результатов учителя
+        /// <summary>
+        /// определение комманды, загружающей экран результатов учителя
+        /// </summary>
         public static RoutedCommand LoadTeacherResultScreen = new RoutedCommand("LoadTeacherResultScreen", typeof(StartWindowShell));
 
+        /// <summary>
+        /// При запуске программы, она подключается к базе данных и загружет стартовый экран 
+        /// </summary>
         public StartWindowShell()
         {
             InitializeComponent();
@@ -70,28 +107,32 @@ namespace Study.Views
             GlobalConfig.InitializeConnection(DataBaseType.sqlite);
 
             //Отображение экрана стартового выбора (регистрация/вход)
-            DispayedPage.Content = new NewOrOld();
+            DisplayedPage.Content = new NewOrOld();
         }
 
-        //обработка комманды, загружающей экран стартового выбора (регистрация/вход)
+        /// <summary>
+        /// обработка комманды, загружающей экран стартового выбора (регистрация/вход)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoadChoiceScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана стартового выбора (регистрация/вход)
-            DispayedPage.Content = new NewOrOld();
+            DisplayedPage.Content = new NewOrOld();
         }
 
         //обработка комманды, загружающей экран входа
         private void LoadLoginScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана входа
-            DispayedPage.Content = new LoginUserControl();
+            DisplayedPage.Content = new LoginUserControl();
         }
 
         //обработка комманды, загружающей экран регистрации
         private void LoadRegistrationScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана регистрации
-            DispayedPage.Content = new StudentRegistrationUserControl();
+            DisplayedPage.Content = new StudentRegistrationUserControl();
         }
 
 
@@ -99,7 +140,7 @@ namespace Study.Views
         private void LoadTeacherRegistrationScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана регистрации учителя
-            DispayedPage.Content = new TeacherRegistrationUserControl();
+            DisplayedPage.Content = new TeacherRegistrationUserControl();
         }
 
 
@@ -115,7 +156,7 @@ namespace Study.Views
             else
             {
                 //возврат на стартовый экран
-                DispayedPage.Content = new LoginUserControl();
+                DisplayedPage.Content = new LoginUserControl();
             }
         }
 
@@ -124,7 +165,7 @@ namespace Study.Views
         private void LoadTeacherCourseScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана регистрации учителя
-            DispayedPage.Content = new TeacherCourseListUserControl();
+            DisplayedPage.Content = new TeacherCourseListUserControl();
             //добавляем место для информации и кнопки выйти
             Height += 20;
             LoggedInfoRow.Height = new GridLength(20);
@@ -138,43 +179,53 @@ namespace Study.Views
         //обработка комманды, загружающей экран регистрации учителя
         private void LoadTeacherTopicListScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            //Отображение экрана регистрации учителя
-            DispayedPage.Content = new TeacherTopicListUserControl();
+            //на случай, если мы попали сюда, кликнув "отмена" при создании/изменеии темы, чистим память
+            if(LearningMaterialInsert.PortionList.Count!=0)
+            {
+                LearningMaterialInsert.PortionList.Clear();
+            }
+            if (LearningMaterialInsert.QuestionList.Count != 0)
+            {
+                LearningMaterialInsert.QuestionList.Clear();
+            }
+
+                //Отображение экрана регистрации учителя
+                DisplayedPage.Content = new TeacherTopicListUserControl();
         }
 
         //определение комманды, загружающей экран учителя, создания/изменения темы 
         private void LoadTeacherAddTopicScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана создания/изменения темы 
-            DispayedPage.Content = new AddTopicUserControl();
+            DisplayedPage.Content = new AddTopicUserControl();
         }
 
         //определение комманды, загружающей экран учителя, создания/изменения раздела темы
         private void LoadTeacherAddTopicPortionScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана создания/изменения раздела темы
-            DispayedPage.Content = new AddTopicPortionUserControl();
+            DisplayedPage.Content = new AddTopicPortionUserControl();
         }
 
         //определение комманды, загружающей экран учителя, создания/изменения вопроса темы
         private void LoadTeacherAddTopicQuestionScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана создания/изменения вопроса темы
-            DispayedPage.Content = new AddTopicQuestionUserControl();
+            DisplayedPage.Content = new AddTopicQuestionUserControl();
         }
 
         //обработка комманды, загружающей экран учителя, предоставления доступа студентам к курсам
         private void LoadTeacherGiveAccessScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана предоставления доступа студентам к курсам
-            DispayedPage.Content = new GiveAccessUserControl();
+            DisplayedPage.Content = new GiveAccessUserControl();
         }
 
         //обработка комманды, загружающей экран курсов студента
         private void LoadStudentCourseListScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана курсов студента
-            DispayedPage.Content = new StudentCoursesListUserControl();
+            DisplayedPage.Content = new StudentCoursesListUserControl();
             //добавляем место для информации и кнопки выйти
             Height += 20;
             LoggedInfoRow.Height = new GridLength(20);
@@ -189,41 +240,41 @@ namespace Study.Views
         private void LoadStudentTopicListScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана тем студента
-            DispayedPage.Content = new StudentTopicListUserControl();
+            DisplayedPage.Content = new StudentTopicListUserControl();
         }
 
         //обработка комманды, загружающей экран раздела выбранной темы студента
         private void LoadStudentTopicPortionScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана раздела выбранной темы студента
-            DispayedPage.Content = new StudentTopicPortionUserControl();
+            DisplayedPage.Content = new StudentTopicPortionUserControl();
         }
 
         //обработка комманды, загружающей экран вопросов выбранной темы студента
         private void LoadStudentTopicQuestionScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана раздела выбранной темы студента
-            DispayedPage.Content = new StudentTopicQuestionUserControl();
+            DisplayedPage.Content = new StudentTopicQuestionUserControl();
         }
 
         //обработка комманды, загружающей экран результатов студента
         private void LoadStudentResultScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана результатов студента
-            DispayedPage.Content = new StudentResultUserControl();
+            DisplayedPage.Content = new StudentResultUserControl();
         }
 
         //обработка комманды, загружающей экран результатов учителя
         private void LoadTeacherResultScreen_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             //Отображение экрана результатов учителя
-            DispayedPage.Content = new TeacherResultsUserControl();
+            DisplayedPage.Content = new TeacherResultsUserControl();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             //Отображение экрана стартового выбора (регистрация/вход)
-            DispayedPage.Content = new NewOrOld();
+            DisplayedPage.Content = new NewOrOld();
             //убираем место для информации и кнопки выйти
             Height -= 20;
             LoggedInfoRow.Height = new GridLength(0);

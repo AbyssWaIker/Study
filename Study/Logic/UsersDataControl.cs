@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Study.Logic
 {
+    /// <summary>
+    /// Класс, Отвечающий за хранение информации о вошедшем пользователе и доступных ему курсах
+    /// </summary>
     public static class UsersDataControl
     {
         /// <summary>
@@ -21,24 +24,37 @@ namespace Study.Logic
         public static TeacherModel currentTeacher { get; set; }
 
         /// <summary>
-        /// Модель хранящая информацию, про просматриваемый/изменяемый курс
-        /// </summary>
-        public static CourseModel currentCourse { get; set; }
-
-        /// <summary>
         /// Список хранящий информацию, о том, какой группе, доступен, какой курс 
         /// </summary>
         public static List<GroupToCourseRealationModel> AccessList { get; set; } = new List<GroupToCourseRealationModel>();
 
+        /// <summary>
+        /// Переменная, которая возвращает текущий курс для показа результатов студенту или преподавателю
+        /// </summary>
+        public static CourseModel currentCourse
+        {
+            get
+            {
+                if (DisplayedLearningMaterial.currentCourseForStudent != null)
+                {
+                    return DisplayedLearningMaterial.currentCourseForStudent;
+                }
+                else
+                {
+                    return LearningMaterialInsert.currentCourseForTeacher;
+                }
+            }
+        }
+
 
         /// <summary>
-        /// Метод принимающий информацию про студента, проверяющий эту информацию и производящий регистрирацию (или возвращающий номер ошибки для отображения)
+        /// Метод принимающий информацию студента, проверяющий ее и производящий регистрирацию (или возвращающий номер ошибки для отображения)
         /// </summary>
         /// <param name="name"> Имя студента</param>
         /// <param name="group">Группа Студента</param>
         /// <param name="username">Логин Студента</param>
         /// <param name="password">Введеный пароль</param>
-        /// <param name="confirmpassword">ВВеденной подтверждение пароля</param>
+        /// <param name="confirmpassword">Введенной подтверждение пароля</param>
         /// <returns>После проверки информации, метод 
         /// или выполняет регистрацию и возвращает сигнал перехода на следующий экран (0) 
         /// или возвращает на информацию, на какой этап проверки информация не прошла
@@ -147,11 +163,12 @@ namespace Study.Logic
         /// </summary>
         /// <param name="username">Введенный логин</param>
         /// <param name="enteredPassword">Введенный пароль</param>
-        /// <returns><returns>После проверки информации, метод 
+        /// <returns>После проверки информации, метод 
         /// или выполняет "план Б", на случай пустоты базы данных и возвращает 0, говоря интерфейсу вызвать экран регистрации преподавателя
         /// или определяет, что логин и пароль студента правильные и возвращает 1, говоря говоря интерфейсу вызвать стартовый экран студента 
         /// или определяет, что логин и пароль учителя правильные и возвращает 2, говоря говоря интерфейсу вызвать стартовый экран учителя 
-        /// или возвращает на информацию, на какой этап проверки информация не прошла
+        /// 
+        /// или возвращает информацию, какой этап проверки информация не прошла:
         /// При возврате 3 интерфейс выводит сообщение, что пользователь ввел неверный логин
         /// При возврате 4 интерфейс выводит сообщение, что пользователь ввел неверный пароль
         /// При возврате 5 интерфейс выводит сообщение, что пользователь не ввел какие-то данные</returns>
@@ -244,6 +261,7 @@ namespace Study.Logic
         { 
             //загружаем (опять) список всех групп (абсолютно лишний расход ресурсов памяти
             List<GroupModel> groups = GlobalConfig.connection.GetGroups_All();
+
             //проверяем свободно ли имя
             bool free = !groups.Exists(x => x.GroupName == groupName);
             return free;
@@ -283,7 +301,7 @@ namespace Study.Logic
                 GlobalConfig.connection.updateGroupToCourseRelation(relation);
 
                 //обновляем отображаемый список
-                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(currentCourse.id);
+                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(LearningMaterialInsert.currentCourseForTeacher.id);
 
             }
             else
@@ -293,7 +311,7 @@ namespace Study.Logic
                 GlobalConfig.connection.updateGroupToCourseRelation(relation);
 
                 //обновляем отображаемый список
-                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(currentCourse.id);
+                AccessList = GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(LearningMaterialInsert.currentCourseForTeacher.id);
             }
         }
 
@@ -312,7 +330,7 @@ namespace Study.Logic
                 //загружаем оценки каждого
                 foreach (StudentModel student in StudentList)
                 {
-                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, currentCourse.id);
+                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, LearningMaterialInsert.currentCourseForTeacher.id);
                 }
 
                 return StudentList;
@@ -320,24 +338,15 @@ namespace Study.Logic
             else
             {
                 //если доступ только по разрешению, получаем список студентов, у которых есть доступ к курсу
-                List<StudentModel> StudentList = GlobalConfig.connection.GetStudentsByCourseid(currentCourse.id);
+                List<StudentModel> StudentList = GlobalConfig.connection.GetStudentsByCourseid(LearningMaterialInsert.currentCourseForTeacher.id);
 
                 //загружаем оценки каждого
                 foreach (StudentModel student in StudentList)
                 {
-                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, currentCourse.id);
+                    student.grades = GlobalConfig.connection.GetStudentGradesforCourse(student.id, LearningMaterialInsert.currentCourseForTeacher.id);
                 }
                 return StudentList;
             }
-        }
-        /// <summary>
-        /// Метод Задающий просматриваемый/изменяемый курс
-        /// </summary>
-        /// <param name="course"> Выбранный курс, который устанавливает текущим</param>
-        public static void setCurrentCourse(CourseModel course)
-        {
-            //устанавливаем курс как текущий
-            currentCourse = course;
         }
 
         /// <summary>
@@ -347,8 +356,9 @@ namespace Study.Logic
         public static List<GroupToCourseRealationModel> LoadAccessPage()
         {
             //получаем список кому разрешен (а кому нет) доступ к курсу
-            return GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(currentCourse.id);
+            return GlobalConfig.connection.GetGroupToCourseRelationWithCourseID(LearningMaterialInsert.currentCourseForTeacher.id);
         }
+
         /// <summary>
         /// Метод записывающий результаты текущего студента
         /// </summary>

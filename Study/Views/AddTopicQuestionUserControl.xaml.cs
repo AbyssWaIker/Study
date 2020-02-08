@@ -30,13 +30,16 @@ namespace Study.Views
 
         private void addWrongAnswer_Click(object sender, RoutedEventArgs e)
         {
-            LearningMaterialInsert.addWrongAnswer(WrongAnswerTextValue.Text);
+            if (!string.IsNullOrWhiteSpace(WrongAnswerTextValue.Text))
+            {
+                LearningMaterialInsert.addWrongAnswer(WrongAnswerTextValue.Text);
 
-            WrongAnswerTextValue.Text = "";
+                WrongAnswerTextValue.Text = "";
 
 
-            wrongAnswers.ItemsSource = null;
-            wrongAnswers.ItemsSource = LearningMaterialInsert.WrongAnswerText;
+                wrongAnswers.ItemsSource = null;
+                wrongAnswers.ItemsSource = LearningMaterialInsert.WrongAnswerText;
+            }
         }
 
         private void deleteWrongAnswer_Click(object sender, RoutedEventArgs e)

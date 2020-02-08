@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-/// Класс хранящий отображаемую информацию, по курсу, который просматривает студент
-/// </summary>
 
 namespace Study.Logic
 {
+    /// <summary>
+    /// Класс хранящий отображаемую информацию, по курсу, который просматривает студент
+    /// </summary>
     public static class DisplayedLearningMaterial
     {
 
@@ -39,6 +39,10 @@ namespace Study.Logic
         /// номер текущего раздела, темы, которую проходит студент
         /// </summary>
         public static int CurrentTopicPortionNumber { get; set; }
+        /// <summary>
+        /// Модель хранящая информацию по просматриваемому курсу
+        /// </summary>
+        public static CourseModel currentCourseForStudent;
 
         /// <summary>
         /// получение списка тем доступных студенту
@@ -83,7 +87,7 @@ namespace Study.Logic
         public static void courseStarted(CourseModel course)
         {
             //установка курса текущим
-            UsersDataControl.setCurrentCourse(course);
+            currentCourseForStudent = course;
             //получение списка тем
             UnfinishedTopics = new ObservableCollection<TopicModel>(GlobalConfig.connection.GetTopicModels_byCourseID(course.id));
 
@@ -160,7 +164,7 @@ namespace Study.Logic
         /// Элемент CurrentTopicPortionNumber - это индекс раздела, в списке. 
         /// Создается со значением 0 и при каждом вызове метода, возвращает раздел с таким индексом и увеличивает CurrentTopicPortionNumber на 1
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Возвращает отображаемый раздел темы</returns>
         public static TopicPortionModel GetCurrentTopicPortion()
         {
             TopicPortionModel currentTopicPortion = CurrentTopic.TopicPortions.ElementAt(CurrentTopicPortionNumber);

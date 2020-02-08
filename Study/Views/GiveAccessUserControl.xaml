@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Study.Views"
-             mc:Ignorable="d" Height="500" Width="500"
-        Background="AliceBlue" FontFamily="Sitka Heading" FontSize="30">
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
+             Background="AliceBlue" FontFamily="Sitka Heading" FontSize="30">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -31,29 +31,30 @@
 
         <TextBlock Text="Предоставить доступ:" HorizontalAlignment="Center" FontSize="36"  
                    Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"></TextBlock>
-
-        <ScrollViewer Grid.Row="4" Grid.Column="1" HorizontalScrollBarVisibility="auto"
-                      VerticalScrollBarVisibility="Auto"
-                      Grid.ColumnSpan="3" Grid.RowSpan="2" MaxWidth="500">
-            <ListView x:Name="AcceessShow" FontSize="24" MinHeight="100" MaxHeight="200" 
+        
+        <ListView x:Name="AcceessShow" FontSize="24" MinHeight="100"
+                      Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       SelectionChanged="AcceessShow_SelectionChanged">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
                             DisplayMemberBinding="{Binding Path=GroupName, Mode=OneWay}">
-                            Группа
-                        </GridViewColumn>
-                        <GridViewColumn
-                            DisplayMemberBinding="{Binding Path=AccessBool, Mode=OneWay}">
-                            Доступ
-                        </GridViewColumn>
-                    
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </ScrollViewer>
+                        Группа
+                    </GridViewColumn>
+                    <GridViewColumn Header="Доступ">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=AccessBool, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-        <TextBox x:Name="NewGroupName" Grid.Column="1" Grid.Row="6" MaxLength="50"
+            <TextBox x:Name="NewGroupName" Grid.Column="1" Grid.Row="6" MaxLength="50"
                  TextChanged="NewGroupName_TextChanged" Width="190" Visibility="Collapsed"/>
         <Button Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" x:Name="addGroup" 
                 Content="Новая группа" Margin="5" Click="addGroup_Click"/>

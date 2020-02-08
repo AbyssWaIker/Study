@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using Study.Models;
 
-/// <summary>
-/// Интерфейс нужный для легкой смены базы данных. Задает все действия производимые с базой данных
-/// </summary>
 
 namespace Study
 {
+
+    /// <summary>
+    /// Интерфейс нужный для легкой смены базы данных. Задает все действия производимые с базой данных
+    /// </summary>
     public interface IDataConnection
     {
         StudentModel createStudent(StudentModel model);

@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Study.Views"
-             mc:Ignorable="d" Height="500" Width="500" Background="AliceBlue" FontFamily="Sitka Heading">
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
+             Height="auto" Width="auto"
+             Background="AliceBlue" FontFamily="Sitka Heading">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "20" />
@@ -32,7 +34,7 @@
                  SelectionChanged="AllCourses_SelectionChanged"/>
 
         <StackPanel Orientation="Horizontal"  Grid.Row="3" Grid.Column="1" 
-                    Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                    HorizontalAlignment="Center">
 
             <Button x:Name="AddCourse" Content="Новый курс" FontSize="30"
                 Grid.ColumnSpan="2" Margin="5" Click="AddCourse_Click"/>

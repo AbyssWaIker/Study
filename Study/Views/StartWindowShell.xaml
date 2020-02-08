@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Study.Views"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Обучающая программа" Height="550" Width="550" FontSize="48"
-        Background="AliceBlue" FontFamily="Sitka Heading" >
+        Background="AliceBlue" FontFamily="Sitka Heading"  >
     <Window.Icon>
         <BitmapImage UriSource="..\Images\book.png"/>
     </Window.Icon>
@@ -64,8 +64,8 @@
             Command="local:StartWindowShell.LoadTeacherResultScreen"
             Executed="LoadTeacherResultScreen_Executed"/>
     </Window.CommandBindings>
-    
-    
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "10" />
@@ -89,8 +89,8 @@
                 <Run>!</Run>
             </TextBlock>
         </StackPanel>
-        <UserControl x:Name="DispayedPage" 
+        <UserControl x:Name="DisplayedPage" 
                      Grid.Column="1" Grid.Row="2"/>
     </Grid>
-
+    
 </Window>

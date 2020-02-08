@@ -31,10 +31,11 @@ namespace Study.Views
 
             if (DisplayedLearningMaterial.allTopicsFinished)
             {
+                Tabs.SelectedItem = TabForFinishedTopics;
                 UnfinishedTopicLabel.Text = "Все темы пройденны";
 
-                ViewResultButton.IsEnabled = true;
-                StartTopicButton.IsEnabled = false;
+                StartTopicButton.IsDefault = false;
+                ViewResultButton.IsDefault = true;
             }
         }
 

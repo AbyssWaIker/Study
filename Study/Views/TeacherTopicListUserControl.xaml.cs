@@ -22,16 +22,21 @@ namespace Study.Views
     /// </summary>
     public partial class TeacherTopicListUserControl : UserControl
     {
+        /// <summary>
+        /// загрузка экрана и отображение информации
+        /// </summary>
         public TeacherTopicListUserControl()
         {
             InitializeComponent();
 
-            CourseNameText.Text = UsersDataControl.currentCourse.Name;
-
-            //выводим список тем
-            AllTopics.ItemsSource = UsersDataControl.currentCourse.topics;
+            //отображаем инофрмацию
+            CourseNameText.Text = LearningMaterialInsert.currentCourseForTeacher.Name;
+            AllTopics.ItemsSource = LearningMaterialInsert.currentCourseForTeacher.topics;
         }
 
+        /// <summary>
+        /// Смена порядка, в котором студенты проходят темы
+        /// </summary>
         private void ChangeOrderButton_Click(object sender, RoutedEventArgs e)
         {
             //проверям выбрана ли какая-то тема, при нажатии кнопки "изменить порядок выбранной темы"
@@ -43,13 +48,13 @@ namespace Study.Views
                 if (isNumber)
                 {
                     //проверям не ввел ли пользователь (например) номер темы - 5 миллиардов (когда тем всего 4)
-                    if (order <= UsersDataControl.currentCourse.topics.Count)
+                    if (order <= LearningMaterialInsert.currentCourseForTeacher.topics.Count)
                     {
                         LearningMaterialInsert.ChangeTopicOrder(order, selected);
 
                         //обновляем отображение
                         AllTopics.ItemsSource = null;
-                        AllTopics.ItemsSource = UsersDataControl.currentCourse.topics;
+                        AllTopics.ItemsSource = LearningMaterialInsert.currentCourseForTeacher.topics;
 
                     }
                     else //если пользователь ввел неверный номер, выводим соответствующую ошибку и сбрасываем содержимое строки
@@ -133,7 +138,7 @@ namespace Study.Views
 
         private void CourseNameText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UsersDataControl.currentCourse.Name = CourseNameText.Text;
+            LearningMaterialInsert.currentCourseForTeacher.Name = CourseNameText.Text;
         }
     }
 }

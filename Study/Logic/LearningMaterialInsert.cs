@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace Study.Logic
 {
+    /// <summary>
+    /// Класс хранящий логику для вставки учителем учебного материала в базу данных
+    /// </summary>
     public static class LearningMaterialInsert
     {
         /// <summary>
@@ -67,6 +70,10 @@ namespace Study.Logic
         /// </summary>
         public static ObservableCollection<String> WrongAnswerText { get; set; } = new ObservableCollection<String>();
 
+        /// <summary>
+        /// Модель хранящая информацию, про изменяемый курс
+        /// </summary>
+        public static CourseModel currentCourseForTeacher { get; set; }
 
 
         /// <summary>
@@ -95,6 +102,8 @@ namespace Study.Logic
                 //добавляем завершенный раздел в список
                 PortionList.Add(topicPortionForChange);
             }
+
+
         }
 
         /// <summary>
@@ -107,7 +116,9 @@ namespace Study.Logic
         {
             questionForChange.QuestionText = text;
             questionForChange.CorrectAnswer = correctAnswer;
+
             questionForChange.wrongAnswers.Clear();
+
             foreach (String wrongAnswer in WrongAnswerText)
             {
                 questionForChange.wrongAnswers.Add(new WrongAnswerModel(questionForChange.id, wrongAnswer));
@@ -135,6 +146,11 @@ namespace Study.Logic
             {
                 PortionList = new ObservableCollection<TopicPortionModel>(GlobalConfig.connection.GetTopicPortions_bytopic(CurrentTopic.id));
                 QuestionList = new ObservableCollection<QuestionModel>(GlobalConfig.connection.GetQuestions_byTopic(CurrentTopic.id));
+            }
+            else
+            {
+                PortionList = new ObservableCollection<TopicPortionModel>();
+                QuestionList = new ObservableCollection<QuestionModel>();
             }
         }
 
@@ -166,13 +182,13 @@ namespace Study.Logic
         {
             CourseModel course = new CourseModel(UsersDataControl.currentTeacher.id);
             GlobalConfig.connection.createCourse(course);
-            UsersDataControl.setCurrentCourse(course);
+            currentCourseForTeacher = course;
             isCourseNew = true;
 
             List<GroupModel> groups = GlobalConfig.connection.GetGroups_All();
             foreach(GroupModel group in groups)
             {
-                GroupToCourseRealationModel model = new GroupToCourseRealationModel(UsersDataControl.currentCourse.id, group.id);
+                GroupToCourseRealationModel model = new GroupToCourseRealationModel(currentCourseForTeacher.id, group.id);
                 GlobalConfig.connection.CreateGroupToCourseRealation(model);
             }
 
@@ -183,14 +199,14 @@ namespace Study.Logic
         /// </summary>
         public static void EditCourse(CourseModel course)
         {
-            UsersDataControl.setCurrentCourse(course);
+            currentCourseForTeacher = course;
             isCourseNew = false;
 
             //получаем список тем
-            List<TopicModel> tml = GlobalConfig.connection.GetTopicModels_byCourseID(UsersDataControl.currentCourse.id);
+            course.topics = GlobalConfig.connection.GetTopicModels_byCourseID(currentCourseForTeacher.id);
 
-            //сортируем список тем по порядку
-            UsersDataControl.currentCourse.topics = tml.OrderBy(x => x.TopicOrderNumber).ToList();
+            //на всякий случай сортируем список тем по порядку
+            currentCourseForTeacher.topics = course.topics.OrderBy(x => x.TopicOrderNumber).ToList();
         }
 
         /// <summary>
@@ -200,17 +216,17 @@ namespace Study.Logic
         public static void FinishCourse(string newNameOfCourse)
         {
             //Обновляем имя курса
-            UsersDataControl.currentCourse.Name = newNameOfCourse;
+            currentCourseForTeacher.Name = newNameOfCourse;
             //Обновляем имя курса в базе данных
-            GlobalConfig.connection.updateCourseName(UsersDataControl.currentCourse);
+            GlobalConfig.connection.updateCourseName(currentCourseForTeacher);
 
             if (isCourseNew) //Если это новый курс, то
             {
                 //добавляем его в список курсов учителя
-                UsersDataControl.currentTeacher.courses.Add(UsersDataControl.currentCourse);
+                UsersDataControl.currentTeacher.courses.Add(currentCourseForTeacher);
             }
 
-            UsersDataControl.currentCourse = null;
+            currentCourseForTeacher = null;
         }
 
         /// <summary>
@@ -233,7 +249,10 @@ namespace Study.Logic
                 ChangeTopic(topic);
             }
 
-            UsersDataControl.currentCourse.topics = GlobalConfig.connection.GetTopicModels_byCourseID(UsersDataControl.currentCourse.id);
+            PortionList.Clear();
+            QuestionList.Clear();
+
+            currentCourseForTeacher.topics = GlobalConfig.connection.GetTopicModels_byCourseID(currentCourseForTeacher.id);
         }
 
         /// <summary>
@@ -242,7 +261,7 @@ namespace Study.Logic
         /// <param name="topic">Новая тема</param>
         public static void AddNewTopic(TopicModel topic)
         {
-            topic.Courseid = UsersDataControl.currentCourse.id;
+            topic.Courseid = currentCourseForTeacher.id;
             //ставим его по порядку на номер (всего тем + 1)
             int NumberofTopics = GlobalConfig.connection.GetNumberofTopicsByCouriseid(topic.Courseid);
             topic.TopicOrderNumber = NumberofTopics + 1;
@@ -357,7 +376,7 @@ namespace Study.Logic
         /// <summary>
         /// Метод, заносящий в систему данные о том, какой раздел надо удалить (но изменения в базу данных не вносятся, пока пользователь не нажмет кнопку "сохранить изменения")
         /// </summary>
-        /// <param name="question">Удаляемый раздел</param>
+        /// <param name="topicPortion">Удаляемый раздел</param>
         public static void DeleteTopicPortionWithoutSavingChanges(TopicPortionModel topicPortion)
         {
             if (newTopic)
@@ -387,13 +406,13 @@ namespace Study.Logic
             GlobalConfig.connection.deleteTopic(topic.id);
 
             //обновляем порядок
-            UsersDataControl.currentCourse.topics.Remove(topic);
-            foreach (TopicModel tm in UsersDataControl.currentCourse.topics)
+            currentCourseForTeacher.topics.Remove(topic);
+            foreach (TopicModel tm in currentCourseForTeacher.topics)
             {
-                tm.TopicOrderNumber = UsersDataControl.currentCourse.topics.IndexOf(tm) + 1;
+                tm.TopicOrderNumber = currentCourseForTeacher.topics.IndexOf(tm) + 1;
                 GlobalConfig.connection.UpdateTopicOrder(tm);
             }
-            UsersDataControl.currentCourse.topics.OrderBy(x => x.TopicOrderNumber);
+            currentCourseForTeacher.topics.OrderBy(x => x.TopicOrderNumber);
         }
 
         /// <summary>
@@ -428,20 +447,20 @@ namespace Study.Logic
         public static void ChangeTopicOrder(int order, TopicModel selected)
         {
             //Проверяем - вдруг тема итак имеет нужный порядок
-            if (UsersDataControl.currentCourse.topics.IndexOf(selected) != (order - 1))
+            if (currentCourseForTeacher.topics.IndexOf(selected) != (order - 1))
             {
                 //если нет, то убираем ее из списка и вставляем под нужным порядком
-                UsersDataControl.currentCourse.topics.Remove(selected);
-                UsersDataControl.currentCourse.topics.Insert(order - 1, selected);
+                currentCourseForTeacher.topics.Remove(selected);
+                currentCourseForTeacher.topics.Insert(order - 1, selected);
 
                 //после этого обновляем порядок тем курса
-                foreach (TopicModel topic in UsersDataControl.currentCourse.topics)
+                foreach (TopicModel topic in currentCourseForTeacher.topics)
                 {
-                    topic.TopicOrderNumber = UsersDataControl.currentCourse.topics.IndexOf(topic) + 1;
+                    topic.TopicOrderNumber = currentCourseForTeacher.topics.IndexOf(topic) + 1;
                     GlobalConfig.connection.UpdateTopicOrder(topic);
                 }
                 //и на всякий случай сортируем темы по порядку
-                UsersDataControl.currentCourse.topics.OrderBy(x => x.TopicOrderNumber);
+                currentCourseForTeacher.topics.OrderBy(x => x.TopicOrderNumber);
             }
         }
 

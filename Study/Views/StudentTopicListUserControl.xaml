@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Study.Views"
-             mc:Ignorable="d" Height="500" Width="500" FontSize="24"
-        Background="AliceBlue" FontFamily="Sitka Heading">
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500" 
+             FontSize="24" Background="AliceBlue" FontFamily="Sitka Heading">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "20" />
@@ -20,8 +20,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Темы:" Grid.Column="1" Grid.Row="1" FontSize="48"/>
-        <TabControl Grid.Row="2" Grid.Column="1">
-            <TabItem>
+        <TabControl Grid.Row="2" Grid.Column="1" x:Name="Tabs">
+            <TabItem x:Name="TabForUnfinished">
                 <TabItem.Header>
                     <TextBlock Text="Не-"/>
                 </TabItem.Header>
@@ -35,7 +35,7 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem>
+            <TabItem  x:Name="TabForFinishedTopics">
                 <TabItem.Header>
                     <TextBlock Text="Завершенные темы"/>
                 </TabItem.Header>
@@ -45,7 +45,7 @@
                         <ListBox x:Name="finishedTopicList" MinHeight="240" MinWidth="200"
                                  DisplayMemberPath="OrderAndName"/>
                         <Button x:Name="ViewResultButton" Content="Посмотреть результаты"
-                                Margin="10" FontSize="36" IsEnabled="False" IsDefault="True" 
+                                Margin="10" FontSize="36"
                                 Command="local:StartWindowShell.LoadStudentResultScreen"/>
                     </StackPanel>
                 </TabItem.Content>

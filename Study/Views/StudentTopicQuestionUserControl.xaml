@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Study.Views"
-             mc:Ignorable="d" Height="500" Width="500" FontSize="24"
-        Background="AliceBlue" FontFamily="Sitka Heading">
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500" 
+             FontSize="24" Background="AliceBlue" FontFamily="Sitka Heading">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "10" />
